@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "19895687572",
+    "project_id": "simplearn3",
+    "storage_bucket": "simplearn3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19895687572:android:b1b98ffea9d04d27a59781",
+        "android_client_info": {
+          "package_name": "com.example.simplearn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19895687572-fnldoqi17usml881hpirpamh78poiio4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.simplearn",
+            "certificate_hash": "a9a003cf39391dbe6b5a18a615dfc9caf0b0992d"
+          }
+        },
+        {
+          "client_id": "19895687572-tktond266r3qru6ul2fn0tql8gt9n4f8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDggYMyYhk0jjlkGwEsqrUKjED2OJ4xUXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19895687572-tktond266r3qru6ul2fn0tql8gt9n4f8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
