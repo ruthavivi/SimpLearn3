@@ -21,9 +21,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new ChatFragment();
             case 1:
-                return new statusFragment();
+                return new gamesFragment();
             case 2:
-                return new callFragment();
+                return new articleFragment();
+            case 3:
+                return new songFragment();
             default:
                 return new Fragment();
         }

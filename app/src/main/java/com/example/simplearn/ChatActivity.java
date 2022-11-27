@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ChatActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
-    TabItem mchat, mcall, mstatus;
+    TabItem mchat, mcall, mstatus,msongs,marticle,mgames;
     ViewPager viewPager;
     PagerAdapter pagerAdapter;
     androidx.appcompat.widget.Toolbar mtoolbar;
@@ -44,8 +44,11 @@ public class ChatActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.include);
         mchat = findViewById(R.id.chat);
-        mcall = findViewById(R.id.calls);
-        mstatus = findViewById(R.id.status);
+        //mcall = findViewById(R.id.calls);
+        //mstatus = findViewById(R.id.status);
+        msongs=findViewById(R.id.songs);
+        marticle=findViewById(R.id.article);
+        mgames=findViewById(R.id.games);
         viewPager = findViewById(R.id.fragmentcontainer);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
