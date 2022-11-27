@@ -9,9 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpLearn">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <activity android:name=".chat.SpecificChat"></activity>
+        <activity android:name=".UpdateProfile" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".setProfile" />
+        <activity android:name=".otpAuthentication" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
