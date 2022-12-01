@@ -36,7 +36,7 @@ import java.util.List;
 public class ProfileActivity extends AppCompatActivity  {
 
 
-    EditText mviewusername;
+    EditText mviewusername,myviewmotherlanguage,myvuewlearning;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     TextView mmovetoupdateprofile;
@@ -64,6 +64,9 @@ public class ProfileActivity extends AppCompatActivity  {
 
         mviewuserimageinimageview=findViewById(R.id.viewuserimageinimageview);
         mviewusername=findViewById(R.id.viewusername);
+        myviewmotherlanguage=findViewById(R.id.viewmotherlanguage);
+        myvuewlearning=findViewById(R.id.viewLearninglanguage);
+
         mmovetoupdateprofile=findViewById(R.id.movetoupdateprofile);
         firebaseFirestore=FirebaseFirestore.getInstance();
         mtoolbarofviewprofile=findViewById(R.id.toolbarofviewprofile);
@@ -99,6 +102,7 @@ public class ProfileActivity extends AppCompatActivity  {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userprofile muserprofile=snapshot.getValue(userprofile.class);
                 mviewusername.setText(muserprofile.getUsername());
+                
             }
 
             @Override
