@@ -95,23 +95,23 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         spinner.setOnItemSelectedListener(this);
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
-        categories.add("Item 1");
-        categories.add("Item 2");
-        categories.add("Item 3");
-        categories.add("Item 4");
-        categories.add("Item 5");
-        categories.add("Item 6");
+        categories.add("English");
+        categories.add("Hebrew");
+        categories.add("Spanish");
+        categories.add("Arabic");
+        categories.add("russian");
+        categories.add("chinese");
 
         // Spinner click listener
         spinner2.setOnItemSelectedListener(this);
         // Spinner Drop down elements
         List<String> categories2 = new ArrayList<String>();
-        categories.add("Item 1");
-        categories.add("Item 2");
-        categories.add("Item 3");
-        categories.add("Item 4");
-        categories.add("Item 5");
-        categories.add("Item 6");
+        categories.add("English");
+        categories.add("Hebrew");
+        categories.add("Spanish");
+        categories.add("Arabic");
+        categories.add("russian");
+        categories.add("chinese");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);

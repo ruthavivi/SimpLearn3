@@ -88,7 +88,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linear_layout"
+        android:id="@+id/linear_layout2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -113,20 +113,21 @@
     </LinearLayout>
 
 
-
     <android.widget.Button
+        android:id="@+id/saveProfile"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_below="@id/getusername"
-        android:id="@+id/saveProfile"
+        android:layout_below="@+id/linear_layout2"
+
+        android:layout_alignParentBottom="true"
+
         android:layout_centerHorizontal="true"
 
-        android:textColor="@color/white"
-
-        android:text="Save Profile"
         android:layout_marginTop="100dp"
-
-        android:background="#25d366">
+        android:layout_marginBottom="50dp"
+        android:background="#25d366"
+        android:text="Save Profile"
+        android:textColor="@color/white">
 
     </android.widget.Button>
 
