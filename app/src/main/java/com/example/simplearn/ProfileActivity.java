@@ -36,7 +36,7 @@ import java.util.List;
 public class ProfileActivity extends AppCompatActivity  {
 
 
-    EditText mviewusername,myviewmotherlanguage,myvuewlearning;
+    EditText mviewusername,myviewmotherlanguage,myvuewlearning,myviewage;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     TextView mmovetoupdateprofile;
@@ -66,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity  {
         mviewusername=findViewById(R.id.viewusername);
         myviewmotherlanguage=findViewById(R.id.viewmotherlanguage);
         myvuewlearning=findViewById(R.id.viewLearninglanguage);
+        myviewage=findViewById(R.id.viewAge);
 
         mmovetoupdateprofile=findViewById(R.id.movetoupdateprofile);
         firebaseFirestore=FirebaseFirestore.getInstance();
@@ -102,7 +103,10 @@ public class ProfileActivity extends AppCompatActivity  {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userprofile muserprofile=snapshot.getValue(userprofile.class);
                 mviewusername.setText(muserprofile.getUsername());
-                
+                myviewmotherlanguage.setText(muserprofile.getMotherlanguage());
+                myvuewlearning.setText(muserprofile.getLearnlanguage());
+                myviewage.setText(muserprofile.getAge());
+
             }
 
             @Override
@@ -118,6 +122,9 @@ public class ProfileActivity extends AppCompatActivity  {
             public void onClick(View view) {
                 Intent intent=new Intent(ProfileActivity.this,UpdateProfile.class);
                 intent.putExtra("nameofuser",mviewusername.getText().toString());
+                intent.putExtra("namemotherlanguage",myviewmotherlanguage.getText().toString());
+                intent.putExtra("namelearninglanguage",myvuewlearning.getText().toString());
+                intent.putExtra("age",myviewage.getText().toString());
                 startActivity(intent);
             }
         });

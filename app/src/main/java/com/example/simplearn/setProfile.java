@@ -216,7 +216,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference databaseReference=firebaseDatabase.getReference(firebaseAuth.getUid());
 
-        userprofile muserprofile=new userprofile(name,firebaseAuth.getUid());
+        userprofile muserprofile=new userprofile(name,firebaseAuth.getUid(),age,motherlanguage,learnlanguage);
         databaseReference.setValue(muserprofile);
         Toast.makeText(getApplicationContext(),"User Profile Added Sucessfully",Toast.LENGTH_SHORT).show();
         sendImagetoStorage();
@@ -296,7 +296,6 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         userdata.put("uid",firebaseAuth.getUid());
         userdata.put("motherlanguage",motherlanguage);
         userdata.put("learnlanguage",learnlanguage);
-
         userdata.put("status","Online");
 
 
