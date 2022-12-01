@@ -280,7 +280,8 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         userdata.put("image",ImageUriAcessToken);
         userdata.put("uid",firebaseAuth.getUid());
         userdata.put("motherlanguage",motherlanguage);
-        userdata.put("motherlanguage",learnlanguage);
+        userdata.put("learnlanguage",learnlanguage);
+
         userdata.put("status","Online");
 
 

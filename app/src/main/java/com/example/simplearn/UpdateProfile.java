@@ -82,6 +82,7 @@ public class UpdateProfile extends AppCompatActivity {
         mnewusername=findViewById(R.id.getnewusername);
         mupdateprofilebutton=findViewById(R.id.updateprofilebutton);
 
+
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
         firebaseStorage=FirebaseStorage.getInstance();
