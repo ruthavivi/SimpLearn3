@@ -50,7 +50,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
     private android.widget.Button msaveprofile;
 
     private FirebaseAuth firebaseAuth;
-    private String name;
+    private String name,motherlanguage,learnlanguage;
 
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
@@ -145,9 +145,19 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
             @Override
             public void onClick(View view) {
                 name=mgetusername.getText().toString();
+                motherlanguage=String.valueOf(spinner.getSelectedItem());
+                learnlanguage=String.valueOf(spinner2.getSelectedItem());
                 if(name.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(),"Name is Empty",Toast.LENGTH_SHORT).show();
+                }
+                if(motherlanguage.isEmpty())
+                {
+                    Toast.makeText(getApplicationContext(),"choose mother language",Toast.LENGTH_SHORT).show();
+                }
+                if(learnlanguage.isEmpty())
+                {
+                    Toast.makeText(getApplicationContext(),"choose learn language",Toast.LENGTH_SHORT).show();
                 }
                 else if(imagepath==null)
                 {
@@ -188,6 +198,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
 
 
         name=mgetusername.getText().toString().trim();
+
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference databaseReference=firebaseDatabase.getReference(firebaseAuth.getUid());
 
@@ -268,6 +279,8 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         userdata.put("name",name);
         userdata.put("image",ImageUriAcessToken);
         userdata.put("uid",firebaseAuth.getUid());
+        userdata.put("motherlanguage",motherlanguage);
+        userdata.put("motherlanguage",learnlanguage);
         userdata.put("status","Online");
 
         documentReference.set(userdata).addOnSuccessListener(new OnSuccessListener<Void>() {
