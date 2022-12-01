@@ -61,20 +61,76 @@
 
     </EditText>
 
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip">
+
+        <!-- Text Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="390dip"
+            android:layout_marginBottom="5dp"
+            android:text="Mother Language:" />
+
+        <!-- Spinner Element -->
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/spinner_title" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip">
+
+        <!-- Text Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="450dip"
+            android:layout_marginBottom="5dp"
+            android:text="learning Language:" />
+
+        <!-- Spinner Element -->
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/spinner_title" />
+
+
+    </LinearLayout>
+
+
+
     <android.widget.Button
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_below="@id/getusername"
         android:id="@+id/saveProfile"
         android:layout_centerHorizontal="true"
+
         android:textColor="@color/white"
 
         android:text="Save Profile"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="100dp"
 
         android:background="#25d366">
 
     </android.widget.Button>
+
+
 
 
     <ProgressBar

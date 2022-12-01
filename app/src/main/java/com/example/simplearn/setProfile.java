@@ -11,9 +11,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,10 +33,12 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class setProfile extends AppCompatActivity {
+public class setProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private CardView mgetuserimage;
     private ImageView mgetuserimageinimageview;
@@ -80,6 +86,50 @@ public class setProfile extends AppCompatActivity {
         mgetuserimageinimageview=findViewById(R.id.getuserimageinimageview);
         msaveprofile=findViewById(R.id.saveProfile);
         mprogressbarofsetprofile=findViewById(R.id.progressbarofsetProfile);
+
+        // Spinner element
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
+        Button button=(Button)findViewById(R.id.button);
+        // Spinner click listener
+        spinner.setOnItemSelectedListener(this);
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("Item 1");
+        categories.add("Item 2");
+        categories.add("Item 3");
+        categories.add("Item 4");
+        categories.add("Item 5");
+        categories.add("Item 6");
+
+        // Spinner click listener
+        spinner2.setOnItemSelectedListener(this);
+        // Spinner Drop down elements
+        List<String> categories2 = new ArrayList<String>();
+        categories.add("Item 1");
+        categories.add("Item 2");
+        categories.add("Item 3");
+        categories.add("Item 4");
+        categories.add("Item 5");
+        categories.add("Item 6");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+
+        // Creating adapter for spinner2
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner2.setAdapter(dataAdapter2);
+
+
 
 
         mgetuserimage.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +296,22 @@ public class setProfile extends AppCompatActivity {
 
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+
+    }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+
     }
 
 

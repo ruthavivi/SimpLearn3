@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpLearn">
-        <activity android:name=".chat.SpecificChat"></activity>
+        <activity
+            android:name=".languagesecond"
+            android:exported="false" />
+        <activity
+            android:name=".language"
+            android:exported="false" />
+        <activity android:name=".chat.SpecificChat" />
         <activity android:name=".UpdateProfile" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ChatActivity" />
