@@ -46,11 +46,13 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
     private Uri imagepath;
 
     private EditText mgetusername;
+    private EditText mgetage;
+
 
     private android.widget.Button msaveprofile;
 
     private FirebaseAuth firebaseAuth;
-    private String name,motherlanguage,learnlanguage;
+    private String name,motherlanguage,learnlanguage,age;
 
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
@@ -82,6 +84,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
 
 
         mgetusername=findViewById(R.id.getusername);
+        mgetage=findViewById(R.id.getAge);
         mgetuserimage=findViewById(R.id.getuserimage);
         mgetuserimageinimageview=findViewById(R.id.getuserimageinimageview);
         msaveprofile=findViewById(R.id.saveProfile);
@@ -90,6 +93,8 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         // Spinner element
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         final Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
+
+
         Button button=(Button)findViewById(R.id.button);
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
@@ -112,6 +117,10 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         categories.add("Arabic");
         categories.add("russian");
         categories.add("chinese");
+
+
+
+
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
@@ -145,9 +154,14 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
             @Override
             public void onClick(View view) {
                 name=mgetusername.getText().toString();
+                age=mgetage.getText().toString();
                 motherlanguage=String.valueOf(spinner.getSelectedItem());
                 learnlanguage=String.valueOf(spinner2.getSelectedItem());
                 if(name.isEmpty())
+                {
+                    Toast.makeText(getApplicationContext(),"Name is Empty",Toast.LENGTH_SHORT).show();
+                }
+                if(age.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(),"Name is Empty",Toast.LENGTH_SHORT).show();
                 }
@@ -277,6 +291,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         DocumentReference documentReference=firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
         Map<String , Object> userdata=new HashMap<>();
         userdata.put("name",name);
+        userdata.put("age",age);
         userdata.put("image",ImageUriAcessToken);
         userdata.put("uid",firebaseAuth.getUid());
         userdata.put("motherlanguage",motherlanguage);

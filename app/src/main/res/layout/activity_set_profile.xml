@@ -7,49 +7,48 @@
     android:background="@color/white"
     tools:context=".setProfile">
 
+
+
+
+
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:text="Save Your Profile"
         android:fontFamily="@font/raleway"
-        android:layout_above="@+id/getuserimage"
-        android:layout_marginBottom="30dp"
         android:textColor="#25d366"
         android:textStyle="bold"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
 
-    </TextView>
+    />
 
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_above="@+id/getusername"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="80dp"
+        android:layout_below="@id/name"
         android:id="@+id/getuserimage"
         android:layout_centerHorizontal="true"
         app:cardCornerRadius="130dp">
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/defaultprofile"
-            android:id="@+id/getuserimageinimageview"
-            android:scaleType="centerCrop">
 
-        </ImageView>
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/defaultprofile"
+        android:id="@+id/getuserimageinimageview"
+        android:scaleType="centerCrop"/>
 
 
-    </androidx.cardview.widget.CardView>
-
+</androidx.cardview.widget.CardView>
 
     <EditText
         android:layout_width="match_parent"
+        android:layout_below="@id/getuserimage"
         android:layout_height="50dp"
         android:inputType="textCapWords"
         android:hint="Enter Your Name Here"
@@ -57,79 +56,72 @@
         android:id="@+id/getusername"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
-        >
 
-    </EditText>
+        />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_below="@id/getusername"
+        android:layout_height="50dp"
+        android:inputType="textCapWords"
+        android:hint="Enter Your Age Here"
+        android:layout_centerInParent="true"
+        android:id="@+id/getAge"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
 
-    <LinearLayout
-        android:id="@+id/linear_layout"
+        />
+
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_below="@id/getAge"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dip">
+        android:layout_centerHorizontal="true"
 
-        <!-- Text Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="390dip"
-            android:layout_marginBottom="5dp"
-            android:text="Mother Language:" />
+        android:text="Mother Language:" />
 
-        <!-- Spinner Element -->
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/spinner_title" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout2"
+    <!-- Spinner Element -->
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dip">
+        android:layout_below="@id/textview1"
+        android:prompt="@string/spinner_title" />
 
-        <!-- Text Label -->
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="450dip"
-            android:layout_marginBottom="5dp"
-            android:text="learning Language:" />
+    <TextView
+        android:id="@+id/textview2"
+        android:layout_below="@id/spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
 
-        <!-- Spinner Element -->
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/spinner_title" />
+        android:text="learn Language:" />
 
-
-    </LinearLayout>
+    <!-- Spinner Element -->
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview2"
+        android:prompt="@string/spinner_title" />
 
 
     <android.widget.Button
         android:id="@+id/saveProfile"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/linear_layout2"
+        android:layout_below="@+id/spinner2"
 
         android:layout_centerHorizontal="true"
 
-        android:layout_marginTop="10dp"
         android:background="#25d366"
         android:text="Save Profile"
         android:textColor="@color/white">
 
+
+
     </android.widget.Button>
-
-
-
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -148,4 +140,6 @@
 
 
 
+
 </RelativeLayout>
+
