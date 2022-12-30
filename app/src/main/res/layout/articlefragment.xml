@@ -4,14 +4,68 @@
     android:layout_height="match_parent"
     android:background="#919191">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="10dip"
+        android:id="@+id/linear_layout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="article"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_centerInParent="true">
+        >
 
-    </TextView>
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hebrew newspaper" />
+
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" english newspaper" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="spanish newspaper" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="chinease newspaper" />
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="russian newspaper" />
+
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="arabic newspaper" />
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="italian newspaper" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="franche newspaper" />
+
+    </LinearLayout>
+
+
+
+
+
+
+
 </RelativeLayout>
