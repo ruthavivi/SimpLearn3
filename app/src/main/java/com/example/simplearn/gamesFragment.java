@@ -11,6 +11,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class gamesFragment extends Fragment {
     @Nullable
@@ -32,9 +33,14 @@ public class gamesFragment extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fragment languageFragment = new languageFragment();
+                FragmentTransaction fm=getActivity().getSupportFragmentManager().beginTransaction();
+                fm.replace(R.id.fragment_container,languageFragment).commit();
 
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.50languages.com/games/memo/he/es/1/1/"));
-                startActivity(browserIntent);
+
+
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.50languages.com/games/memo/he/es/1/1/"));
+//                startActivity(browserIntent);
             }
         });
 
