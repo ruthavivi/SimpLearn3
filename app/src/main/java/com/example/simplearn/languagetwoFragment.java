@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class languageFragment extends Fragment {
+
+public class languagetwoFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_language,container, false);
+        View view=inflater.inflate(R.layout.fragment_languagetwo,container, false);
 
         Button button=(Button) view.findViewById(R.id.button2);
         Button button3=(Button) view.findViewById(R.id.button3);
@@ -37,7 +39,7 @@ public class languageFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.duolingo.com/lesson"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-hebrew"));
                 startActivity(browserIntent);
             }
         });
@@ -45,7 +47,7 @@ public class languageFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLYLb0XTvo8voLll99HN_tlXSqo7_P_yij"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-german"));
                 startActivity(browserIntent);
             }
         });
@@ -53,7 +55,7 @@ public class languageFragment extends Fragment {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.duolingo.com/lesson"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-spanish"));
                 startActivity(browserIntent);
             }
         });
@@ -61,7 +63,7 @@ public class languageFragment extends Fragment {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLMMP91KB4rYYQRVUej89yFPx6uiyBnBk_"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-chinese"));
                 startActivity(browserIntent);
             }
         });
@@ -69,21 +71,21 @@ public class languageFragment extends Fragment {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLG7T7IWRveA_tmHLanNYQuGdABxaYfCpr"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-russian"));
                 startActivity(browserIntent);
             }
         });
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBCdoy0Y0lsMdy3E8mP55FPpEGWGXyZE2"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-arabic-moroccan"));
                 startActivity(browserIntent);
             }
         });
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBTWm99Xrp1fuC5ctyDjJQ4fbuUvUNIq_"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-italian"));
                 startActivity(browserIntent);
             }
         });
@@ -91,7 +93,7 @@ public class languageFragment extends Fragment {
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=DB3DXcy8CJc&list=PLUTooNITsBD7LG1KAQ7ECWWY7RHykfMoK"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-french"));
                 startActivity(browserIntent);
             }
         });

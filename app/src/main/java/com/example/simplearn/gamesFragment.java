@@ -47,8 +47,14 @@ public class gamesFragment extends Fragment {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.50languages.com/games/memo/he/es/1/1/"));
-                startActivity(browserIntent);
+                Fragment languagetwoFragment = new languagetwoFragment();
+                FragmentTransaction fm=getActivity().getSupportFragmentManager().beginTransaction();
+                fm.replace(R.id.fragment_container,languagetwoFragment).commit();
+
+
+
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.50languages.com/games/memo/he/es/1/1/"));
+//                startActivity(browserIntent);
             }
         });
         return view;
