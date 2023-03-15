@@ -23,6 +23,8 @@ public class gamesFragment extends Fragment {
         Button button=(Button) view.findViewById(R.id.button2);
         Button button3=(Button) view.findViewById(R.id.button3);
         Button button4=(Button) view.findViewById(R.id.button4);
+        Button button5=(Button) view.findViewById(R.id.button5);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +59,19 @@ public class gamesFragment extends Fragment {
 //                startActivity(browserIntent);
             }
         });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment WordSearchLang = new WordSearchLang();
+                FragmentTransaction fm=getActivity().getSupportFragmentManager().beginTransaction();
+                fm.replace(R.id.fragment_container,WordSearchLang).commit();
+
+
+            }
+        });
+
+
         return view;
     }
 }

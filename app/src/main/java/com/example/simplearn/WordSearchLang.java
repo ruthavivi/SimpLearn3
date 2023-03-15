@@ -7,18 +7,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class languageFragment extends Fragment {
-    @Nullable
+
+public class WordSearchLang extends Fragment {
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_language,container, false);
-
         Button button=(Button) view.findViewById(R.id.button2);
         Button button3=(Button) view.findViewById(R.id.button3);
         Button button4=(Button) view.findViewById(R.id.button4);
@@ -28,68 +28,63 @@ public class languageFragment extends Fragment {
         Button button8=(Button) view.findViewById(R.id.button8);
         Button button9=(Button) view.findViewById(R.id.button9);
 
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.duolingo.com/lesson"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
                 startActivity(browserIntent);
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLYLb0XTvo8voLll99HN_tlXSqo7_P_yij"));
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amuselabs.com/games/wordsearch/"));
                 startActivity(browserIntent);
             }
         });
-
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.duolingo.com/lesson"));
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://thewordsearch.com/puzzle/4479/la-comida/"));
                 startActivity(browserIntent);
             }
         });
-
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLMMP91KB4rYYQRVUej89yFPx6uiyBnBk_"));
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
                 startActivity(browserIntent);
             }
         });
-
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLG7T7IWRveA_tmHLanNYQuGdABxaYfCpr"));
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
                 startActivity(browserIntent);
             }
         });
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBCdoy0Y0lsMdy3E8mP55FPpEGWGXyZE2"));
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
                 startActivity(browserIntent);
             }
         });
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBTWm99Xrp1fuC5ctyDjJQ4fbuUvUNIq_"));
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+                startActivity(browserIntent);
+            }
+        });
+        button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://thewordsearch.com/puzzle/10843/french-for-beginners/"));
                 startActivity(browserIntent);
             }
         });
 
-        button9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=DB3DXcy8CJc&list=PLUTooNITsBD7LG1KAQ7ECWWY7RHykfMoK"));
-                startActivity(browserIntent);
-            }
-        });
         return view;
 
 
