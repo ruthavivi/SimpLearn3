@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -102,7 +105,16 @@ public class ChatActivity extends AppCompatActivity {
                 break;
 
             case R.id.settings:
-                Toast.makeText(getApplicationContext(), "Settign is clicked", Toast.LENGTH_SHORT).show();
+                View settingsLayout = getLayoutInflater().inflate(R.layout.settings_layout,null,false);
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this)
+                        .setTitle("SimpLearn")
+                        .setPositiveButton("Save", (dialogInterface, i) -> {
+
+                        })
+                        .setNegativeButton("Close",null)
+                        .setView(settingsLayout);
+                dialog.show();
                 break;
         }
 

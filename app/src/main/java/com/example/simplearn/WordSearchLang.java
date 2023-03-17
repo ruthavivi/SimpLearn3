@@ -31,7 +31,7 @@ public class WordSearchLang extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yo-yoo.co.il/tifzorot/tif.php?id=13"));
                 startActivity(browserIntent);
             }
         });

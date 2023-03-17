@@ -1,7 +1,9 @@
 package com.example.simplearn;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,12 +27,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity  {
@@ -68,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity  {
         myvuewlearning=findViewById(R.id.viewLearninglanguage);
         myviewage=findViewById(R.id.viewAge);
 
-        mmovetoupdateprofile=findViewById(R.id.movetoupdateprofile);
+        mmovetoupdateprofile=findViewById(R.id.updateProfileSubmit);
         firebaseFirestore=FirebaseFirestore.getInstance();
         mtoolbarofviewprofile=findViewById(R.id.toolbarofviewprofile);
         mbackbuttonofviewprofile=findViewById(R.id.backbuttonofviewprofile);
@@ -96,23 +102,24 @@ public class ProfileActivity extends AppCompatActivity  {
 
             }
         });
+        DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
 
-        DatabaseReference databaseReference=firebaseDatabase.getReference(firebaseAuth.getUid());
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userprofile muserprofile=snapshot.getValue(userprofile.class);
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                userprofile muserprofile= value.toObject(userprofile.class);
+                if(muserprofile == null) {
+                    userprofile profile = new userprofile();
+                    profile.setUserUID(firebaseAuth.getUid());
+                    firebaseFirestore.collection("Users")
+                            .document(firebaseAuth.getUid())
+                            .set(profile);
+                    return;
+                }
                 mviewusername.setText(muserprofile.getUsername());
                 myviewmotherlanguage.setText(muserprofile.getMotherlanguage());
                 myvuewlearning.setText(muserprofile.getLearnlanguage());
                 myviewage.setText(muserprofile.getAge());
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Toast.makeText(getApplicationContext(),"Failed To Fetch",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -120,12 +127,63 @@ public class ProfileActivity extends AppCompatActivity  {
         mmovetoupdateprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ProfileActivity.this,UpdateProfile.class);
+
+                String userName = mviewusername.getText().toString();
+                String motherLanguage = myviewmotherlanguage.getText().toString();
+                String learningLanguage = myvuewlearning.getText().toString();
+                String age = myviewage.getText().toString();
+                String problematicField = null;
+                if(userName.isEmpty()) {
+                    mviewusername.requestFocus();
+                    problematicField = "User name";
+                }
+                if(age.isEmpty()) {
+                    myviewmotherlanguage.requestFocus();
+                    problematicField = "Age";
+                }
+                if(motherLanguage.isEmpty()) {
+                    myviewmotherlanguage.requestFocus();
+                    problematicField = "Mother language";
+                }
+                if(learningLanguage.isEmpty()) {
+                    myvuewlearning.requestFocus();
+                    problematicField = "Learning language";
+                }
+
+                if(problematicField != null) {
+                    Toast.makeText(ProfileActivity.this,problematicField + " is required!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ProgressDialog pd = new ProgressDialog(ProfileActivity.this);
+                pd.setTitle("SimpLearn");
+                pd.setMessage("Saving changes..");
+                pd.show();
+                pd.setCancelable(false);
+                HashMap<String,Object> updateValues = new HashMap<>();
+                updateValues.put("username",userName);
+                updateValues.put("age",age);
+                updateValues.put("motherlanguage",motherLanguage);
+                updateValues.put("learnlanguage",learningLanguage);
+                FirebaseFirestore.getInstance().collection("Users")
+                        .document(FirebaseAuth.getInstance().getUid())
+                        .update(updateValues)
+                        .addOnSuccessListener(success -> {
+                           Toast.makeText(ProfileActivity.this,
+                                   "Changes saved successfully",Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
+                        }).addOnFailureListener(e -> {
+                            Toast.makeText(ProfileActivity.this,
+                                    "Changes where not saved!",Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
+                        });
+
+
+                /*Intent intent=new Intent(ProfileActivity.this,UpdateProfile.class);
                 intent.putExtra("nameofuser",mviewusername.getText().toString());
                 intent.putExtra("namemotherlanguage",myviewmotherlanguage.getText().toString());
                 intent.putExtra("namelearninglanguage",myvuewlearning.getText().toString());
                 intent.putExtra("age",myviewage.getText().toString());
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 

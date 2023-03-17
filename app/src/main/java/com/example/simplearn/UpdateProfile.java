@@ -172,7 +172,12 @@ public class UpdateProfile extends AppCompatActivity {
         });
 
         storageReference=firebaseStorage.getReference();
-        storageReference.child("Images").child(firebaseAuth.getUid()).child("Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageReference
+                .child("Images")
+                .child(firebaseAuth.getUid())
+                .child("Profile Pic")
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 ImageURIacessToken=uri.toString();
@@ -288,15 +293,13 @@ public class UpdateProfile extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        DocumentReference documentReference=firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
+        DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
         documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getApplicationContext(),"Now User is Offline",Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
     }
 

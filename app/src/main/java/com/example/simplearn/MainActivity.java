@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hbb20.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
@@ -56,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 countrycode = mcountrycodepicker.getSelectedCountryCodeWithPlus();
             }
         });
-
+FirebaseDatabase.getInstance().getReference().get().addOnSuccessListener(result -> {
+    System.out.println(result.getValue());
+});
         msendotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
