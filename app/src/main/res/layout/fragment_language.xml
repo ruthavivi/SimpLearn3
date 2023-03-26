@@ -5,12 +5,11 @@
     android:background="#919191">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="10dip"
         android:id="@+id/linear_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        >
+        android:orientation="vertical"
+        android:padding="1dip">
 
         <Button
             android:id="@+id/button2"
@@ -23,7 +22,7 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" english " />
+            android:text=" german " />
 
         <Button
             android:id="@+id/button4"
@@ -36,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="chinease " />
+
         <Button
             android:id="@+id/button6"
             android:layout_width="wrap_content"
@@ -48,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="arabic " />
+
         <Button
             android:id="@+id/button8"
             android:layout_width="wrap_content"
