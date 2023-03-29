@@ -52,7 +52,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
     private android.widget.Button msaveprofile;
 
     private FirebaseAuth firebaseAuth;
-    private String name,motherlanguage,learnlanguage,age;
+    public String name,motherlanguage,learnlanguage,age;
 
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
@@ -62,6 +62,8 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
     private FirebaseFirestore firebaseFirestore;
 
     ProgressBar mprogressbarofsetprofile;
+
+     public firebasemodel firebasemodel;
 
 
 
@@ -184,6 +186,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
                     sendDataForNewUser();
                     mprogressbarofsetprofile.setVisibility(View.INVISIBLE);
                     Intent intent=new Intent(setProfile.this, ChatActivity.class);
+                    intent.putExtra("motherlanguage",motherlanguage);
                     startActivity(intent);
                     finish();
 
@@ -259,7 +262,9 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
                     public void onSuccess(Uri uri) {
                         ImageUriAcessToken=uri.toString();
                         Toast.makeText(getApplicationContext(),"URI get sucess",Toast.LENGTH_SHORT).show();
+                        firebasemodel =new firebasemodel( name,null,firebaseAuth.getUid(),null,age, motherlanguage, learnlanguage);
                         sendDataTocloudFirestore();
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

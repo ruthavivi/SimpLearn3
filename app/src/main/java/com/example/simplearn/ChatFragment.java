@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,17 +27,28 @@ import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends firebasemodel {
+
+
 
     private FirebaseFirestore firebaseFirestore;
     LinearLayoutManager linearLayoutManager;
     private FirebaseAuth firebaseAuth;
+
+
+
+
+
 
     ImageView mimageviewofuser;
 
     FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder> chatAdapter;
 
     RecyclerView mrecyclerview;
+
+    @NonNull firebasemodel firebasemodel1;
+
+
 
 
     @Nullable
@@ -49,8 +61,11 @@ public class ChatFragment extends Fragment {
         mrecyclerview = v.findViewById(R.id.recyclerview);
 
 
-        // Query query=firebaseFirestore.collection("Users");
-        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid());
+
+
+        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage","Spanish").whereEqualTo("motherlanguage","Hebrew");
+        //Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",getMotherlanguage()).whereEqualTo("motherlanguage",getLearnlanguage());
+
         FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
 
         chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {

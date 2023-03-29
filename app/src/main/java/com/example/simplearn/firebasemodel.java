@@ -1,13 +1,16 @@
 package com.example.simplearn;
-public class firebasemodel {
 
-    String name;
-    String image;
-    String uid;
-    String status;
-    String age;
-    String motherlanguage;
-    String learnlanguage;
+import androidx.fragment.app.Fragment;
+
+public class firebasemodel extends Fragment {
+
+    public String name;
+    public String image;
+    public String uid;
+    public String status;
+    public String age;
+    public String motherlanguage;
+    public String learnlanguage;
 
 
 

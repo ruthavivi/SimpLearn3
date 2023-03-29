@@ -29,12 +29,42 @@
 
         </TextView>
 
+        <TextView
+            android:id="@+id/motherlanguage"
+            android:layout_below="@id/nameofuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/cardviewofuser"
+            android:text=" "
+            android:textColor="#0b0b0b"
+            android:textSize="5sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/learnlanguage"
+            android:layout_below="@id/motherlanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/cardviewofuser"
+            android:text=" "
+            android:textColor="#0b0b0b"
+            android:textSize="5sp"
+            android:textStyle="bold">
+
+        </TextView>
+
 
         <TextView
             android:id="@+id/statusofuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameofuser"
+            android:layout_below="@id/learnlanguage"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="3dp"
             android:layout_toRightOf="@id/cardviewofuser"
