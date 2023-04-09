@@ -74,9 +74,10 @@ public class ChatFragment extends firebasemodel {
 
                 noteViewHolder.particularusername.setText(firebasemodel.getName());
                 String uri = firebasemodel.getImage();
-
+                noteViewHolder.bio.setText(firebasemodel.getBio());
                 Picasso.get().load(uri).into(mimageviewofuser);
                 if (firebasemodel.getStatus().equals("Online")) {
+
                     noteViewHolder.statusofuser.setText(firebasemodel.getStatus());
                     noteViewHolder.statusofuser.setTextColor(Color.GREEN);
                 } else {
@@ -118,9 +119,12 @@ public class ChatFragment extends firebasemodel {
 
         private TextView particularusername;
         private TextView statusofuser;
+        private TextView bio;
+
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
+            bio = itemView.findViewById(R.id.bio);
             particularusername = itemView.findViewById(R.id.nameofuser);
             statusofuser = itemView.findViewById(R.id.statusofuser);
             mimageviewofuser = itemView.findViewById(R.id.imageviewofuser);

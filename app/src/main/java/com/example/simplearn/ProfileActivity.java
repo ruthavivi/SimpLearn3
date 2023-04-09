@@ -1,12 +1,20 @@
 package com.example.simplearn;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,14 +41,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity  {
 
+
+
+    private final static int CAMERA_CODE = 1;
+    private final static int GALLERY_CODE = 2;
 
     EditText mviewusername,myviewmotherlanguage,myvuewlearning,myviewage;
     FirebaseAuth firebaseAuth;
@@ -53,7 +67,11 @@ public class ProfileActivity extends AppCompatActivity  {
 
     StorageReference storageReference;
 
-    private String ImageURIacessToken;
+
+    // user images to upload
+    private Uri imageUri;
+    private Bitmap imageBitmap;
+    boolean userHasImage;
 
     androidx.appcompat.widget.Toolbar mtoolbarofviewprofile;
     ImageButton mbackbuttonofviewprofile;
@@ -92,16 +110,9 @@ public class ProfileActivity extends AppCompatActivity  {
             }
         });
 
-
+        EditText bioEt = findViewById(R.id.mviewBio);
         storageReference=firebaseStorage.getReference();
-        storageReference.child("Images").child(firebaseAuth.getUid()).child("Profile Pic").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                ImageURIacessToken=uri.toString();
-                Picasso.get().load(uri).into(mviewuserimageinimageview);
 
-            }
-        });
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
 
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -116,6 +127,10 @@ public class ProfileActivity extends AppCompatActivity  {
                             .set(profile);
                     return;
                 }
+                if(muserprofile.getImage() != null && imageBitmap == null && imageUri ==null) {
+                    Picasso.get().load(muserprofile.getImage()).into(mviewuserimageinimageview);
+                }
+                bioEt.setText(muserprofile.getBio());
                 mviewusername.setText(muserprofile.getUsername());
                 myviewmotherlanguage.setText(muserprofile.getMotherlanguage());
                 myvuewlearning.setText(muserprofile.getLearnlanguage());
@@ -161,39 +176,130 @@ public class ProfileActivity extends AppCompatActivity  {
                 pd.setCancelable(false);
                 HashMap<String,Object> updateValues = new HashMap<>();
                 updateValues.put("username",userName);
+                if(!bioEt.getText().toString().isEmpty())
+                 updateValues.put("bio", bioEt.getText().toString());
                 updateValues.put("age",age);
                 updateValues.put("motherlanguage",motherLanguage);
                 updateValues.put("learnlanguage",learningLanguage);
-                FirebaseFirestore.getInstance().collection("Users")
-                        .document(FirebaseAuth.getInstance().getUid())
-                        .update(updateValues)
-                        .addOnSuccessListener(success -> {
-                           Toast.makeText(ProfileActivity.this,
-                                   "Changes saved successfully",Toast.LENGTH_SHORT).show();
-                            pd.dismiss();
-                        }).addOnFailureListener(e -> {
-                            Toast.makeText(ProfileActivity.this,
-                                    "Changes where not saved!",Toast.LENGTH_SHORT).show();
-                            pd.dismiss();
-                        });
+                StorageReference reference = FirebaseStorage.getInstance()
+                        .getReference("Images")
+                        .child(FirebaseAuth.getInstance().getUid())
+                        .child("Profile pic");
+                if(imageUri !=null) {
+                    reference.putFile(imageUri)
+                            .addOnSuccessListener(taskSnapshot ->
+                                    reference.getDownloadUrl()
+                                            .addOnSuccessListener(uri -> {
+                                                updateValues.put("image", uri.toString());
+                                                saveUserDetails(pd, updateValues);
+                                            }).addOnFailureListener(e -> Toast.makeText(ProfileActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show())).addOnFailureListener(e -> Toast.makeText(ProfileActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show());
+                } else if(imageBitmap != null) {
+                    System.out.println("Uploading image");
+                    byte[] imageBytes = getBytesFromBitmap(imageBitmap);
+                    reference.putBytes(imageBytes)
+                            .addOnSuccessListener(taskSnapshot ->
+                                    reference.getDownloadUrl()
+                                            .addOnSuccessListener(uri -> {
+                                                updateValues.put("image", uri.toString());
+                                                saveUserDetails(pd, updateValues);
+                                            }).addOnFailureListener(e -> Toast.makeText(ProfileActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show())).addOnFailureListener(e -> Toast.makeText(ProfileActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show());
 
-
-                /*Intent intent=new Intent(ProfileActivity.this,UpdateProfile.class);
-                intent.putExtra("nameofuser",mviewusername.getText().toString());
-                intent.putExtra("namemotherlanguage",myviewmotherlanguage.getText().toString());
-                intent.putExtra("namelearninglanguage",myvuewlearning.getText().toString());
-                intent.putExtra("age",myviewage.getText().toString());
-                startActivity(intent);*/
+                } else {
+                    saveUserDetails(pd ,updateValues);
+                }
             }
         });
 
+        mviewuserimageinimageview.setOnClickListener(v -> {
 
+            View pictureChooseLayout = getLayoutInflater().inflate(R.layout.choose_picture,null,false);
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("SimpLearn")
+                    .setView(pictureChooseLayout)
+                    .setPositiveButton("Close",null)
+                    .create();
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialogInterface) {
+                    Button cameraBtn = pictureChooseLayout.findViewById(R.id.takePicture);
+                    Button galleryBtn = pictureChooseLayout.findViewById(R.id.chooseFromGallery);
 
+                    cameraBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(ActivityCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.CAMERA)
+                            == PERMISSION_GRANTED) {
+                                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(cameraIntent, CAMERA_CODE);
+                            } else {
+                                 ActivityCompat.requestPermissions(ProfileActivity.this,
+                                         new String[]{Manifest.permission.CAMERA},
+                                         1);
+                            }
+                        }
+                    });
+
+                    galleryBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(ActivityCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                                    == PERMISSION_GRANTED) {
+                                Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+                                galleryIntent.setType("image/*");
+                                startActivityForResult(galleryIntent, GALLERY_CODE);
+                            } else {
+                                ActivityCompat.requestPermissions(ProfileActivity.this,
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        1);
+                            }
+                        }
+                    });
+                }
+            });
+            dialog.show();
+        });
 
     }
 
+    public static byte[] getBytesFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
+    private void saveUserDetails(ProgressDialog pd, HashMap<String,Object> updateValues) {
 
+        FirebaseFirestore.getInstance().collection("Users")
+                .document(FirebaseAuth.getInstance().getUid())
+                .update(updateValues)
+                .addOnSuccessListener(success -> {
+                    Toast.makeText(ProfileActivity.this,
+                            "Changes saved successfully",Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(ProfileActivity.this,
+                            "Changes where not saved!",Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
+                });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            if(requestCode == CAMERA_CODE) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                mviewuserimageinimageview.setImageBitmap(bitmap);
+                imageBitmap = bitmap;
+                imageUri = null;
+            }else if(requestCode == GALLERY_CODE) {
+                Uri uri = data.getData();
+                mviewuserimageinimageview.setImageURI(uri);
+                imageUri = uri;
+                imageBitmap = null;
+            }
+        }
+    }
 
     @Override
     protected void onStop() {

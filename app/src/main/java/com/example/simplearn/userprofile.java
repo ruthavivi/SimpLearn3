@@ -3,8 +3,8 @@ package com.example.simplearn;
 public class userprofile {
 
 
-    public String username,userUID,age,motherlanguage,learnlanguage;
-
+    public String username,userUID,age,motherlanguage,learnlanguage,bio;
+    public String image;
     public userprofile() {
     }
 
@@ -16,6 +16,21 @@ public class userprofile {
         this.learnlanguage=learnlanguage;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getMotherlanguage() {
         return motherlanguage;

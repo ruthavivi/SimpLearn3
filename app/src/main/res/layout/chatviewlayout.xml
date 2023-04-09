@@ -14,14 +14,19 @@
         android:paddingRight="10dp"
         android:paddingBottom="-5dp">
 
+            <LinearLayout
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/cardviewofuser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
         <TextView
             android:id="@+id/nameofuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@id/cardviewofuser"
+
             android:text="Name Display Here"
             android:textColor="#0b0b0b"
             android:textSize="20sp"
@@ -30,13 +35,20 @@
         </TextView>
 
         <TextView
-            android:id="@+id/motherlanguage"
-            android:layout_below="@id/nameofuser"
+            android:id="@+id/bio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@id/cardviewofuser"
+            android:text="Bio"
+            android:textColor="#0b0b0b"
+            android:textSize="16sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/motherlanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text=" "
             android:textColor="#0b0b0b"
             android:textSize="5sp"
@@ -46,13 +58,8 @@
 
         <TextView
             android:id="@+id/learnlanguage"
-            android:layout_below="@id/motherlanguage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@id/cardviewofuser"
-            android:text=" "
             android:textColor="#0b0b0b"
             android:textSize="5sp"
             android:textStyle="bold">
@@ -64,15 +71,11 @@
             android:id="@+id/statusofuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/learnlanguage"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="3dp"
-            android:layout_toRightOf="@id/cardviewofuser"
             android:text="Status Displays here"
             android:textColor="#6a6a6a"
             android:textSize="12sp">
 
-        </TextView>
+        </TextView></LinearLayout>
 
 
         <androidx.cardview.widget.CardView

@@ -7,6 +7,7 @@ public class firebasemodel extends Fragment {
     public String name;
     public String image;
     public String uid;
+    public String bio;
     public String status;
     public String age;
     public String motherlanguage;
@@ -26,6 +27,14 @@ public class firebasemodel extends Fragment {
     }
 
     public firebasemodel() {
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getName() {
