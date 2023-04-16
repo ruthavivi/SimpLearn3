@@ -22,7 +22,11 @@ import com.example.simplearn.chat.SpecificChat;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
@@ -48,6 +52,8 @@ public class ChatFragment extends firebasemodel {
 
     @NonNull firebasemodel firebasemodel1;
 
+    public String motherL,learnL;
+
 
 
 
@@ -59,12 +65,41 @@ public class ChatFragment extends firebasemodel {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         mrecyclerview = v.findViewById(R.id.recyclerview);
+        DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
+
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                userprofile muserprofile= value.toObject(userprofile.class);
+                if(muserprofile == null) {
+                    userprofile profile = new userprofile();
+                    profile.setUserUID(firebaseAuth.getUid());
+                    firebaseFirestore.collection("Users")
+                            .document(firebaseAuth.getUid())
+                            .set(profile);
+                    return;
+                }
+                motherL= muserprofile.getMotherlanguage();
+                learnL=muserprofile.getLearnlanguage();
+
+            }
+        });
 
 
 
 
-        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage","Spanish").whereEqualTo("motherlanguage","Hebrew");
+
+
+        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",motherL).whereEqualTo("motherlanguage",learnL);
         //Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",getMotherlanguage()).whereEqualTo("motherlanguage",getLearnlanguage());
+
+
+
+
+//
+//
+//        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage","Spanish").whereEqualTo("motherlanguage","Hebrew");
+//        //Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",getMotherlanguage()).whereEqualTo("motherlanguage",getLearnlanguage());
 
         FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
 
