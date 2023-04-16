@@ -190,42 +190,42 @@ public class gamesFragment extends Fragment {
 
                 switch(learnL) {
                     case "Hebrew":
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yo-yoo.co.il/tifzorot/tif.php?id=13"));
-                        startActivity(browserIntent);
+                        Intent intent = new Intent(getActivity(),WordGame.class);
+                        startActivity(intent);
                         // code block
                         break;
                     case "English":
-                        Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amuselabs.com/games/wordsearch/"));
-                        startActivity(browserIntent2);
+                        Intent intent2 = new Intent(getActivity(),WordGame.class);
+                        startActivity(intent2);
                         // code blockcase
                         break;
                     case "Spanish":
-                        Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://thewordsearch.com/puzzle/4479/la-comida/"));
-                        startActivity(browserIntent3);
+                        Intent intent3 = new Intent(getActivity(),WordGame.class);
+                        startActivity(intent3);
                         break;
 
                     case "chinease":
 
-                        Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
-                        startActivity(browserIntent4);
+                        Intent intent4 = new Intent(getActivity(),WordGame.class);
+                        startActivity(intent4);
                         break;
 
                     case "russian":
-                        Intent browserIntent5 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
-                        startActivity(browserIntent5);
+                        Intent intent5 = new Intent(getActivity(),WordGame.class);
+                        startActivity(intent5);
                         break;
 
                     case "Arabic":
-                        Intent browserIntent6 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
-                        startActivity(browserIntent6);
+                        Intent intent6 = new Intent(getActivity(),WordGame.class);
+                        startActivity(intent6);
                         break;
                     case "Italian":
-                        Intent browserIntent7 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
-                        startActivity(browserIntent7);
+                        Intent intent7 = new Intent(getActivity(),WordGame.class);
+                        startActivity(intent7);
                         break;
                     case "Franche":
-                        Intent browserIntent8 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://thewordsearch.com/puzzle/10843/french-for-beginners/"));
-                        startActivity(browserIntent8);
+                        Intent intent8 = new Intent(getActivity(),WordGame.class);
+                        startActivity(intent8);
                         break;
                     default:
                         // code block
