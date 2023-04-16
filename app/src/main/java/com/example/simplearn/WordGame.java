@@ -108,6 +108,7 @@ public class WordGame extends AppCompatActivity {
         String userGuess = etUserGuess.getText().toString();
         if (userGuess.equalsIgnoreCase(currentWord)) {
             tvResult.setText("Correct!");
+            startNewGame();
         } else {
             tvResult.setText("Incorrect, try again.");
         }
