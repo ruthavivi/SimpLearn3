@@ -82,6 +82,7 @@ public class ChatFragment extends firebasemodel {
                 motherL= muserprofile.getMotherlanguage();
                 learnL=muserprofile.getLearnlanguage();
 
+
             }
         });
 
