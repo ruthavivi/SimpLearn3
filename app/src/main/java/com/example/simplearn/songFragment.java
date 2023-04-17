@@ -3,6 +3,7 @@ package com.example.simplearn;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class songFragment extends Fragment {
         mWebView.setWebViewClient(new WebViewClient());
 
 
-        Button button10=(Button) view.findViewById(R.id.button10);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -70,10 +71,10 @@ public class songFragment extends Fragment {
             }
         });
 
-        button10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
                 switch(learnL) {
                     case "Hebrew":
                         mWebView.loadUrl("https://youtube.com/playlist?list=PLGoOLgH-OsN7AoG5Rot_fK_lmy3ol81Dv");
@@ -124,9 +125,9 @@ public class songFragment extends Fragment {
                     default:
                         // code block
                 }
-
             }
-        });
+        }, 50); // מחכה למשך 5 שניות לפני שהופעל ה switch case
+
 
 
 

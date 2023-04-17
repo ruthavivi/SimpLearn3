@@ -3,6 +3,7 @@ package com.example.simplearn;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class articleFragment extends Fragment {
         mWebView.setWebViewClient(new WebViewClient());
 
 
-        Button article=(Button) view.findViewById(R.id.button10);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -68,10 +69,9 @@ public class articleFragment extends Fragment {
             }
         });
 
-        article.setOnClickListener(new View.OnClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-
+            public void run() {
                 switch(learnL) {
                     case "Hebrew":
                         mWebView.loadUrl("https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx1YlY4U0FtbDNHZ0pKVENnQVAB?hl=he&gl=IL&ceid=IL%3Ahe");
@@ -123,9 +123,13 @@ public class articleFragment extends Fragment {
                     default:
                         // code block
                 }
-
             }
-        });
+        }, 50); // מחכה למשך 5 שניות לפני שהופעל ה switch case
+
+
+
+
+
 
 
         return view;
