@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -24,20 +27,24 @@ public class songFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     public String motherL,learnL;
+    private WebView mWebView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.songfragment,container, false);
 
-//        Button button=(Button) view.findViewById(R.id.button2);
-//        Button button3=(Button) view.findViewById(R.id.button3);
-//        Button button4=(Button) view.findViewById(R.id.button4);
-//        Button button5=(Button) view.findViewById(R.id.button5);
-//        Button button6=(Button) view.findViewById(R.id.button6);
-//        Button button7=(Button) view.findViewById(R.id.button7);
-//        Button button8=(Button) view.findViewById(R.id.button8);
-//        Button button9=(Button) view.findViewById(R.id.button9);
+
+
+        mWebView = view.findViewById(R.id.webview);
+
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        mWebView.setWebViewClient(new WebViewClient());
+
+
         Button button10=(Button) view.findViewById(R.id.button10);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -69,42 +76,50 @@ public class songFragment extends Fragment {
 
                 switch(learnL) {
                     case "Hebrew":
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLGoOLgH-OsN7AoG5Rot_fK_lmy3ol81Dv"));
-                        startActivity(browserIntent);
+                        mWebView.loadUrl("https://youtube.com/playlist?list=PLGoOLgH-OsN7AoG5Rot_fK_lmy3ol81Dv");
+//                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLGoOLgH-OsN7AoG5Rot_fK_lmy3ol81Dv"));
+//                        startActivity(browserIntent);
                         // code block
                         break;
                     case "English":
-                        Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLYLb0XTvo8voLll99HN_tlXSqo7_P_yij"));
-                        startActivity(browserIntent2);
+                        mWebView.loadUrl("https://youtube.com/playlist?list=PLYLb0XTvo8voLll99HN_tlXSqo7_P_yij");
+//                        Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLYLb0XTvo8voLll99HN_tlXSqo7_P_yij"));
+//                        startActivity(browserIntent2);
                         // code blockcase
                         break;
                     case "Spanish":
-                        Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLTqtOhbrKEtCg-GDksPpIOWGf5JM-y0nt"));
-                        startActivity(browserIntent3);
+                        mWebView.loadUrl("https://youtube.com/playlist?list=PLTqtOhbrKEtCg-GDksPpIOWGf5JM-y0nt");
+//                        Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLTqtOhbrKEtCg-GDksPpIOWGf5JM-y0nt"));
+//                        startActivity(browserIntent3);
                         break;
 
                     case "chinease":
+                        mWebView.loadUrl("https://youtube.com/playlist?list=PLMMP91KB4rYYQRVUej89yFPx6uiyBnBk_");
 
-                        Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLMMP91KB4rYYQRVUej89yFPx6uiyBnBk_"));
-                        startActivity(browserIntent4);
+//                        Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLMMP91KB4rYYQRVUej89yFPx6uiyBnBk_"));
+//                        startActivity(browserIntent4);
                         break;
 
                     case "russian":
-                        Intent browserIntent5 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLG7T7IWRveA_tmHLanNYQuGdABxaYfCpr"));
-                        startActivity(browserIntent5);
+                        mWebView.loadUrl("https://youtube.com/playlist?list=PLG7T7IWRveA_tmHLanNYQuGdABxaYfCpr");
+//                        Intent browserIntent5 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLG7T7IWRveA_tmHLanNYQuGdABxaYfCpr"));
+//                        startActivity(browserIntent5);
                         break;
 
                     case "Arabic":
-                        Intent browserIntent6 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBCdoy0Y0lsMdy3E8mP55FPpEGWGXyZE2"));
-                        startActivity(browserIntent6);
+                        mWebView.loadUrl("https://youtube.com/playlist?list=PLBCdoy0Y0lsMdy3E8mP55FPpEGWGXyZE2");
+//                        Intent browserIntent6 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBCdoy0Y0lsMdy3E8mP55FPpEGWGXyZE2"));
+//                        startActivity(browserIntent6);
                         break;
                     case "Italian":
-                        Intent browserIntent7 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBTWm99Xrp1fuC5ctyDjJQ4fbuUvUNIq_"));
-                        startActivity(browserIntent7);
+                        mWebView.loadUrl("https://youtube.com/playlist?list=PLBTWm99Xrp1fuC5ctyDjJQ4fbuUvUNIq_");
+//                        Intent browserIntent7 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBTWm99Xrp1fuC5ctyDjJQ4fbuUvUNIq_"));
+//                        startActivity(browserIntent7);
                         break;
                     case "Franche":
-                        Intent browserIntent8 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=DB3DXcy8CJc&list=PLUTooNITsBD7LG1KAQ7ECWWY7RHykfMoK"));
-                        startActivity(browserIntent8);
+                        mWebView.loadUrl("https://www.youtube.com/watch?v=DB3DXcy8CJc&list=PLUTooNITsBD7LG1KAQ7ECWWY7RHykfMoK");
+//                        Intent browserIntent8 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=DB3DXcy8CJc&list=PLUTooNITsBD7LG1KAQ7ECWWY7RHykfMoK"));
+//                        startActivity(browserIntent8);
                         break;
                     default:
                         // code block
@@ -118,68 +133,6 @@ public class songFragment extends Fragment {
 
 
 
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLGoOLgH-OsN7AoG5Rot_fK_lmy3ol81Dv"));
-//                startActivity(browserIntent);
-//            }
-//        });
-//        button3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLYLb0XTvo8voLll99HN_tlXSqo7_P_yij"));
-//                startActivity(browserIntent);
-//            }
-//        });
-//
-//        button4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLTqtOhbrKEtCg-GDksPpIOWGf5JM-y0nt"));
-//                startActivity(browserIntent);
-//            }
-//        });
-//
-//        button5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLMMP91KB4rYYQRVUej89yFPx6uiyBnBk_"));
-//                startActivity(browserIntent);
-//            }
-//        });
-//
-//        button6.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLG7T7IWRveA_tmHLanNYQuGdABxaYfCpr"));
-//                startActivity(browserIntent);
-//            }
-//        });
-//        button7.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBCdoy0Y0lsMdy3E8mP55FPpEGWGXyZE2"));
-//                startActivity(browserIntent);
-//            }
-//        });
-//        button8.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/playlist?list=PLBTWm99Xrp1fuC5ctyDjJQ4fbuUvUNIq_"));
-//                startActivity(browserIntent);
-//            }
-//        });
-//
-//        button9.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=DB3DXcy8CJc&list=PLUTooNITsBD7LG1KAQ7ECWWY7RHykfMoK"));
-//                startActivity(browserIntent);
-//            }
-//        });
         return view;
 
 
