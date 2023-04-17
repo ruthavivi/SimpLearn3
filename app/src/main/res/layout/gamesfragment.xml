@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/button_background"
+
             android:text="Language Memo Game"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/button_background"
+
             android:text="Game 2"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/button_background"
+
             android:text="Game 3"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/button_background"
+
             android:text="Word Search"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
