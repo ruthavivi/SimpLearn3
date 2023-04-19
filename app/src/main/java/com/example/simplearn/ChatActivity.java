@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -15,6 +16,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,15 +29,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     TabLayout tabLayout;
     TabItem mchat, mcall, mstatus,msongs,marticle,mgames;
     ViewPager viewPager;
     PagerAdapter pagerAdapter;
     androidx.appcompat.widget.Toolbar mtoolbar;
+     Spinner spinner;
+    Button button;
 
     FirebaseAuth firebaseAuth;
 
@@ -47,6 +57,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         tabLayout = findViewById(R.id.include);
+        spinner = (Spinner) findViewById(R.id.spinner);
         mchat = findViewById(R.id.chat);
         //mcall = findViewById(R.id.calls);
         //mstatus = findViewById(R.id.status);
@@ -58,16 +69,42 @@ public class ChatActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
+
         mtoolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
+
+
 
 
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_baseline_more_vert_24);
         mtoolbar.setOverflowIcon(drawable);
 
 
+
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
+
+        button=(Button)findViewById(R.id.button10);
+
+        spinner.setOnItemSelectedListener(this);
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("English");
+        categories.add("Hebrew");
+        categories.add("Spanish");
+        categories.add("Arabic");
+        categories.add("russian");
+        categories.add("chinese");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -92,6 +129,27 @@ public class ChatActivity extends AppCompatActivity {
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String learnlanguage = String.valueOf(spinner.getSelectedItem());
+
+
+
+                HashMap<String,Object> updateValues = new HashMap<>();
+                updateValues.put("learnlanguage",learnlanguage);
+                saveUserDetails(updateValues);
+            }
+        });
+
+
+    }
+
+    private void saveUserDetails( HashMap<String,Object> updateValues) {
+
+        FirebaseFirestore.getInstance().collection("Users")
+                .document(FirebaseAuth.getInstance().getUid())
+                .update(updateValues);
 
     }
 
@@ -162,4 +220,13 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

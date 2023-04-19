@@ -9,35 +9,63 @@
     tools:context=".ChatActivity">
 
 
-
-
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginTop="0dp"
-        android:background="#0396A8"
-        android:id="@+id/toolbar">
+        android:background="#0396A8">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical">
+
             <TextView
+                android:id="@+id/myapptext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MyChatApp"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:id="@+id/myapptext"
-                android:textStyle="bold"
-                android:textColor="@color/white">
+                android:textStyle="bold">
 
             </TextView>
 
 
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+
+                android:layout_toEndOf="@+id/myapptext"
+
+
+                android:backgroundTint="#00BCD4"
+                android:text="save"
+                android:textSize="8sp" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="3dp"
+
+                android:layout_marginBottom="3dp"
+                android:layout_toEndOf="@+id/button10"
+
+
+                android:prompt="@string/spinner_title" />
+
+
+
+
         </RelativeLayout>
-
-
 
 
     </androidx.appcompat.widget.Toolbar>
