@@ -162,22 +162,14 @@ public class SpecificChat extends AppCompatActivity implements VideoEnterRoomNum
                     firebaseDatabase.getReference().child("chats")
                             .child(senderroom)
                             .child("messages")
-                            .push().setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            firebaseDatabase.getReference()
-                                    .child("chats")
-                                    .child(recieverroom)
-                                    .child("messages")
-                                    .push()
-                                    .setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
+                            .push().setValue(messages);
 
-                                }
-                            });
-                        }
-                    });
+                    firebaseDatabase.getReference()
+                            .child("chats")
+                            .child(recieverroom)
+                            .child("messages")
+                            .push()
+                            .setValue(messages);
 
                     mgetmessage.setText(null);
                 }

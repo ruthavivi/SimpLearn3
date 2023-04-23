@@ -145,15 +145,15 @@
 
             </EditText>
 
-            <EditText
-                android:id="@+id/mviewBio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Bio"
-                android:inputType="text"
-                android:minHeight="100dp">
+<!--            <EditText-->
+<!--                android:id="@+id/mviewBio"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Bio"-->
+<!--                android:inputType="text"-->
+<!--                android:minHeight="100dp">-->
 
-            </EditText>
+<!--            </EditText>-->
 
             <Button
                 android:id="@+id/updateProfileSubmit"
