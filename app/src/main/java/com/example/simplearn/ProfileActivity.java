@@ -110,7 +110,7 @@ public class ProfileActivity extends AppCompatActivity  {
             }
         });
 
-        EditText bioEt = findViewById(R.id.mviewBio);
+        //EditText bioEt = findViewById(R.id.mviewBio);
         storageReference=firebaseStorage.getReference();
 
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
@@ -130,7 +130,7 @@ public class ProfileActivity extends AppCompatActivity  {
                 if(muserprofile.getImage() != null && imageBitmap == null && imageUri ==null) {
                     Picasso.get().load(muserprofile.getImage()).into(mviewuserimageinimageview);
                 }
-                bioEt.setText(muserprofile.getBio());
+                //bioEt.setText(muserprofile.getBio());
                 mviewusername.setText(muserprofile.getUsername());
                 myviewmotherlanguage.setText(muserprofile.getMotherlanguage());
                 myvuewlearning.setText(muserprofile.getLearnlanguage());
@@ -176,8 +176,8 @@ public class ProfileActivity extends AppCompatActivity  {
                 pd.setCancelable(false);
                 HashMap<String,Object> updateValues = new HashMap<>();
                 updateValues.put("username",userName);
-                if(!bioEt.getText().toString().isEmpty())
-                 updateValues.put("bio", bioEt.getText().toString());
+                //if(!bioEt.getText().toString().isEmpty())
+                 //updateValues.put("bio", bioEt.getText().toString());
                 updateValues.put("age",age);
                 updateValues.put("motherlanguage",motherLanguage);
                 updateValues.put("learnlanguage",learningLanguage);
