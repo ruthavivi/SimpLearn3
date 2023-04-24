@@ -60,6 +60,7 @@ public class ProfileActivity extends AppCompatActivity  {
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     TextView mmovetoupdateprofile;
+    String tweetText="hey im new here";
 
     FirebaseFirestore firebaseFirestore;
 
@@ -181,6 +182,7 @@ public class ProfileActivity extends AppCompatActivity  {
                 updateValues.put("age",age);
                 updateValues.put("motherlanguage",motherLanguage);
                 updateValues.put("learnlanguage",learningLanguage);
+                updateValues.put("text", tweetText);
                 StorageReference reference = FirebaseStorage.getInstance()
                         .getReference("Images")
                         .child(FirebaseAuth.getInstance().getUid())

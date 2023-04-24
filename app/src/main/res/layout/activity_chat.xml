@@ -34,6 +34,7 @@
             </TextView>
 
 
+
             <Button
                 android:id="@+id/button10"
                 android:layout_width="wrap_content"
@@ -45,19 +46,20 @@
 
                 android:backgroundTint="#00BCD4"
                 android:text="save"
-                android:textSize="8sp" />
+                />
 
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="100dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="3dp"
 
                 android:layout_marginBottom="3dp"
-                android:layout_toEndOf="@+id/button10"
+                android:layout_toEndOf="@+id/myapptext"
+
 
 
                 android:prompt="@string/spinner_title" />
@@ -94,7 +96,7 @@
             android:id="@+id/games"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="games">
+            android:text="Games">
 
         </com.google.android.material.tabs.TabItem>
 
@@ -102,7 +104,7 @@
             android:id="@+id/article"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="article">
+            android:text="News">
 
         </com.google.android.material.tabs.TabItem>
 
@@ -110,9 +112,11 @@
             android:id="@+id/songs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="songs">
+            android:text="Songs">
 
         </com.google.android.material.tabs.TabItem>
+
+
 
 
     </com.google.android.material.tabs.TabLayout>
