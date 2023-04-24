@@ -67,42 +67,43 @@ public class ChatFragment extends firebasemodel {
         mrecyclerview = v.findViewById(R.id.recyclerview);
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
 
-        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                userprofile muserprofile= value.toObject(userprofile.class);
-                if(muserprofile == null) {
-                    userprofile profile = new userprofile();
-                    profile.setUserUID(firebaseAuth.getUid());
-                    firebaseFirestore.collection("Users")
-                            .document(firebaseAuth.getUid())
-                            .set(profile);
-                    return;
-                }
-                motherL= muserprofile.getMotherlanguage();
-                learnL=muserprofile.getLearnlanguage();
+        documentReference.addSnapshotListener((value, error) -> {
+            if(value == null) return;
+            userprofile muserprofile= value.toObject(userprofile.class);
 
-
+            if(muserprofile == null) {
+                userprofile profile = new userprofile();
+                profile.setUserUID(firebaseAuth.getUid());
+                firebaseFirestore.collection("Users")
+                        .document(firebaseAuth.getUid())
+                        .set(profile);
+                return;
             }
+            motherL = muserprofile.getMotherlanguage();
+            learnL = muserprofile.getLearnlanguage();
+            attachChats(learnL, motherL);
         });
 
 
 
+        mrecyclerview.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mrecyclerview.setLayoutManager(linearLayoutManager);
+        return v;
+    }
 
+    private void attachChats(String filterByLearnLanguage, String filterByMotherLanguage) {
+        Query query = firebaseFirestore.collection("Users")
+                .whereNotEqualTo("uid", firebaseAuth.getUid());
 
+        if(filterByLearnLanguage != null && !filterByLearnLanguage.isEmpty())
+            query = query.whereEqualTo("learnlanguage", filterByMotherLanguage);
+        if(filterByMotherLanguage != null && !filterByMotherLanguage.isEmpty())
+            query = query.whereEqualTo("motherlanguage", filterByLearnLanguage);
 
-        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",motherL).whereEqualTo("motherlanguage",learnL);
-        //Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",getMotherlanguage()).whereEqualTo("motherlanguage",getLearnlanguage());
-
-
-
-
-//
-//
-//        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage","Spanish").whereEqualTo("motherlanguage","Hebrew");
-//        //Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",getMotherlanguage()).whereEqualTo("motherlanguage",getLearnlanguage());
-
-        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
+        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>()
+                .setQuery(query, firebasemodel.class).build();
 
         chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {
             @Override
@@ -140,14 +141,8 @@ public class ChatFragment extends firebasemodel {
                 return new NoteViewHolder(view);
             }
         };
-
-
-        mrecyclerview.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mrecyclerview.setLayoutManager(linearLayoutManager);
         mrecyclerview.setAdapter(chatAdapter);
-        return v;
+        chatAdapter.startListening();
     }
 
 
@@ -167,11 +162,6 @@ public class ChatFragment extends firebasemodel {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        chatAdapter.startListening();
-    }
 
     @Override
     public void onStop() {

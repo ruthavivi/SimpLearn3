@@ -175,6 +175,19 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
                         .setView(settingsLayout);
                 dialog.show();
                 break;
+            case R.id.logout:
+                AlertDialog.Builder logoutDialog = new AlertDialog.Builder(this)
+                        .setTitle("SimpLearn")
+                        .setMessage("Are you sure you want to log out?")
+                        .setPositiveButton("Yes", (dialogInterface, i) -> {
+                            setUserOffline();
+                            FirebaseAuth.getInstance().signOut();
+                            finish();
+                            startActivity(new Intent(this,MainActivity.class));
+                        })
+                        .setNegativeButton("Close",null);
+                logoutDialog.show();
+                break;
         }
 
 
@@ -195,15 +208,20 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onStop() {
         super.onStop();
-        DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
-        documentReference.update("status", "Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(), "Now User is Offline", Toast.LENGTH_SHORT).show();
-            }
-        });
+        setUserOffline();
+    }
 
-
+    void setUserOffline() {
+        if(firebaseAuth.getUid() == null) return;
+        DocumentReference documentReference = firebaseFirestore.collection("Users")
+                .document(firebaseAuth.getUid());
+        documentReference.update("status", "Offline")
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(getApplicationContext(), "Now User is Offline", Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 
     @Override

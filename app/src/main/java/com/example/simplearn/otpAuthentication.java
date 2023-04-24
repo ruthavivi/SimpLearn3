@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class otpAuthentication extends AppCompatActivity {
 
@@ -80,16 +82,39 @@ public class otpAuthentication extends AppCompatActivity {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential)
     {
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
                     mprogressbarofotpauth.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(),"Login sucess",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(otpAuthentication.this,setProfile.class);
-                    startActivity(intent);
-                    finish();
+
+                    FirebaseFirestore.getInstance()
+                            .collection("Users")
+                            .document(firebaseAuth.getUid())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if(task.isSuccessful()) {
+                                        DocumentSnapshot result = task.getResult();
+                                        if(result != null && result.exists()) {
+                                            Intent intent=new Intent(otpAuthentication.this,ChatActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                            return;
+                                        }
+                                    }
+                                    Intent intent=new Intent(otpAuthentication.this,setProfile.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+
+
                 }
                 else
                 {
