@@ -2,7 +2,7 @@ package com.example.simplearn;
 
 import androidx.fragment.app.Fragment;
 
-public class firebasemodel extends Fragment {
+public class firebasemodel extends Fragment  {
 
     public String name;
     public String image;

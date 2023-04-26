@@ -94,15 +94,16 @@ public class ChatFragment extends firebasemodel {
     }
 
     private void attachChats(String filterByLearnLanguage, String filterByMotherLanguage) {
-        Query query = firebaseFirestore.collection("Users")
-                .whereNotEqualTo("uid", firebaseAuth.getUid());
+        Query query = firebaseFirestore.collection("Users");
+               /* .whereNotEqualTo("uid", firebaseAuth.getUid());*/
 
-        if(filterByLearnLanguage != null && !filterByLearnLanguage.isEmpty())
-            query = query.whereEqualTo("learnlanguage", filterByMotherLanguage);
-        if(filterByMotherLanguage != null && !filterByMotherLanguage.isEmpty())
+        /*if(filterByLearnLanguage != null && !filterByLearnLanguage.isEmpty())
+            query = query.whereEqualTo("learnlanguage", filterByLearnLanguage);*/
+      /*  if(filterByMotherLanguage != null && !filterByMotherLanguage.isEmpty())
             query = query.whereEqualTo("motherlanguage", filterByLearnLanguage);
-
-        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>()
+*/
+        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions
+                .Builder<firebasemodel>()
                 .setQuery(query, firebasemodel.class).build();
 
         chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {

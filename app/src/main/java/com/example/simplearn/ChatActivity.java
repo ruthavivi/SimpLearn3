@@ -134,8 +134,6 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View view) {
                 String learnlanguage = String.valueOf(spinner.getSelectedItem());
 
-
-
                 HashMap<String,Object> updateValues = new HashMap<>();
                 updateValues.put("learnlanguage",learnlanguage);
                 saveUserDetails(updateValues);
