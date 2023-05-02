@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpLearn">
         <activity
+            android:name=".UserBio"
+            android:exported="false" />
+        <activity
             android:name=".WordGame"
             android:exported="false" />
         <activity

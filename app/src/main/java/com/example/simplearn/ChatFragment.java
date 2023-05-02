@@ -126,9 +126,15 @@ public class ChatFragment extends firebasemodel {
                         intent.putExtra("name", firebasemodel.getName());
                         intent.putExtra("receiveruid", firebasemodel.getUid());
                         intent.putExtra("imageuri", firebasemodel.getImage());
+                        intent.putExtra("motherLanguage", firebasemodel.getMotherlanguage());
+                        intent.putExtra("learnLanguage", firebasemodel.getLearnlanguage());
+                        intent.putExtra("age", firebasemodel.getAge());
+                        intent.putExtra("bio",firebasemodel.getBio());
                         startActivity(intent);
                     }
                 });
+
+
             }
 
             @NonNull

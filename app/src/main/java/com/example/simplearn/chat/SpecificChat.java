@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.simplearn.Messages;
 import com.example.simplearn.MessagesAdapter;
 import com.example.simplearn.R;
+import com.example.simplearn.UserBio;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +51,7 @@ public class SpecificChat extends AppCompatActivity implements VideoEnterRoomNum
 
     private String enteredmessage;
     Intent intent;
-    String mrecievername, sendername, mrecieveruid, msenderuid;
+    String mrecievername, sendername, mrecieveruid, msenderuid,motherlanguage,learnlanguage,age,bio;
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     String senderroom, recieverroom;
@@ -105,10 +106,31 @@ public class SpecificChat extends AppCompatActivity implements VideoEnterRoomNum
         msenderuid = firebaseAuth.getUid();
         mrecieveruid = getIntent().getStringExtra("receiveruid");
         mrecievername = getIntent().getStringExtra("name");
+        motherlanguage=getIntent().getStringExtra("motherLanguage");
+        learnlanguage=getIntent().getStringExtra("learnLanguage");
+        age=getIntent().getStringExtra("age");
+        bio=getIntent().getStringExtra("bio");
+
 
 
         senderroom = msenderuid + mrecieveruid;
         recieverroom = mrecieveruid + msenderuid;
+
+        mimageviewofspecificuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(SpecificChat.this, UserBio.class);
+                intent.putExtra("recivername",mrecievername);
+                intent.putExtra("receiveruid", mrecievername);
+                intent.putExtra("motherLanguage",motherlanguage);
+                intent.putExtra("learnLanguage",learnlanguage);
+                intent.putExtra("age",age);
+                intent.putExtra("bio",bio);
+
+                startActivity(intent);
+            }
+        });
 
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("chats").child(senderroom).child("messages");
         messagesAdapter = new MessagesAdapter(SpecificChat.this, messagesArrayList);

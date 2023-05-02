@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class UpdateProfile extends AppCompatActivity {
 
-    private  EditText mnewusername,mnewmotherlanguage,mnewlearninglanguage,mnewage;
+    private  EditText mnewusername,mnewmotherlanguage,mnewlearninglanguage,mnewage,mnewbio;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
 
@@ -65,7 +65,7 @@ public class UpdateProfile extends AppCompatActivity {
     private static int PICK_IMAGE=123;
 
     android.widget.Button mupdateprofilebutton;
-    String newname,newage,newmotherlanguage,newlearnlanguage;
+    String newname,newage,newmotherlanguage,newlearnlanguage,bio;
 
 
 
@@ -84,6 +84,7 @@ public class UpdateProfile extends AppCompatActivity {
         mnewmotherlanguage=findViewById(R.id.viewmotherlanguage);
         mnewlearninglanguage=findViewById(R.id.viewLearninglanguage);
         mnewage=findViewById(R.id.viewAge);
+        mnewbio=findViewById(R.id.bio);
 
 
         firebaseAuth=FirebaseAuth.getInstance();
@@ -125,7 +126,7 @@ public class UpdateProfile extends AppCompatActivity {
                 {
                     mprogressbarofupdateprofile.setVisibility(View.VISIBLE);
 
-                    userprofile muserprofile =new userprofile(newname,firebaseAuth.getUid(),newage,newmotherlanguage,newlearnlanguage);
+                    userprofile muserprofile =new userprofile(newname,firebaseAuth.getUid(),newage,newmotherlanguage,newlearnlanguage,bio);
                     databaseReference.setValue(muserprofile);
 
                     updateimagetostorage();
@@ -141,7 +142,7 @@ public class UpdateProfile extends AppCompatActivity {
                 {
 
                     mprogressbarofupdateprofile.setVisibility(View.VISIBLE);
-                    userprofile muserprofile =new userprofile(newname,firebaseAuth.getUid(),newage,newmotherlanguage,newlearnlanguage);
+                    userprofile muserprofile =new userprofile(newname,firebaseAuth.getUid(),newage,newmotherlanguage,newlearnlanguage,bio);
                     databaseReference.setValue(muserprofile);
                     updatenameoncloudfirestore();
                     Toast.makeText(getApplicationContext(),"Updated",Toast.LENGTH_SHORT).show();
@@ -202,6 +203,7 @@ public class UpdateProfile extends AppCompatActivity {
         userdata.put("name",newname);
         userdata.put("image",ImageURIacessToken);
         userdata.put("uid",firebaseAuth.getUid());
+        userdata.put("bio",bio);
         userdata.put("status","Online");
 
 

@@ -47,17 +47,16 @@
 </androidx.cardview.widget.CardView>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_below="@id/getuserimage"
-        android:layout_height="50dp"
-        android:inputType="textCapWords"
-        android:hint="Enter Your Name Here"
-        android:layout_centerInParent="true"
         android:id="@+id/getusername"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/getuserimage"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
+        android:hint="Enter Your Name Here"
 
-        />
+        android:inputType="textCapWords" />
 
     <EditText
         android:layout_width="match_parent"
@@ -72,14 +71,28 @@
 
         />
 
-    <TextView
-        android:id="@+id/textview1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/getAge"
-        android:layout_centerHorizontal="true"
 
-        android:text="Mother Language:" />
+
+    <EditText
+        android:id="@+id/bio"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/getAge"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:hint="Enter Your bio Here"
+
+        android:inputType="textCapWords" />
+
+    <TextView
+    android:id="@+id/textview1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/bio"
+    android:layout_centerHorizontal="true"
+
+    android:text="Mother Language:" />
 
     <!-- Spinner Element -->
     <Spinner
@@ -91,9 +104,9 @@
 
     <TextView
         android:id="@+id/textview2"
-        android:layout_below="@id/spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/spinner"
         android:layout_centerHorizontal="true"
 
         android:text="learn Language:" />
@@ -122,6 +135,8 @@
 
 
     </android.widget.Button>
+
+
 
     <ProgressBar
         android:layout_width="wrap_content"

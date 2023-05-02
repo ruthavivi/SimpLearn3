@@ -8,12 +8,13 @@ public class userprofile {
     public userprofile() {
     }
 
-    public userprofile(String username, String userUID,String age,String motherlanguage,String learnlanguage) {
+    public userprofile(String username, String userUID,String age,String motherlanguage,String learnlanguage,String bio) {
         this.username = username;
         this.userUID = userUID;
         this.age=age;
         this.motherlanguage=motherlanguage;
         this.learnlanguage=learnlanguage;
+        this.bio=bio;
     }
 
     public String getImage() {

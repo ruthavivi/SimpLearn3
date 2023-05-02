@@ -16,7 +16,7 @@ public class firebasemodel extends Fragment  {
 
 
 
-    public firebasemodel(String name, String image, String uid, String status,String age,String motherlanguage,String learnlanguage) {
+    public firebasemodel(String name, String image, String uid, String status,String age,String motherlanguage,String learnlanguage,String bio) {
         this.name = name;
         this.image = image;
         this.uid = uid;
@@ -24,6 +24,7 @@ public class firebasemodel extends Fragment  {
         this.age=age;
         this.learnlanguage=learnlanguage;
         this.motherlanguage=motherlanguage;
+        this.bio=bio;
     }
 
     public firebasemodel() {

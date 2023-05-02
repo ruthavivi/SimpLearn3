@@ -44,6 +44,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
     private ImageView mgetuserimageinimageview;
     private static int PICK_IMAGE=123;
     private Uri imagepath;
+    private EditText getbio;
 
     private EditText mgetusername;
     private EditText mgetage;
@@ -52,7 +53,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
     private android.widget.Button msaveprofile;
 
     private FirebaseAuth firebaseAuth;
-    public String name,motherlanguage,learnlanguage,age;
+    public String name,motherlanguage,learnlanguage,age,bio;
 
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
@@ -83,6 +84,8 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         firebaseStorage=FirebaseStorage.getInstance();
         storageReference=firebaseStorage.getReference();
         firebaseFirestore=FirebaseFirestore.getInstance();
+
+        getbio=findViewById(R.id.bio);
 
 
         mgetusername=findViewById(R.id.getusername);
@@ -152,11 +155,13 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         });
 
 
+
         msaveprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 name=mgetusername.getText().toString();
                 age=mgetage.getText().toString();
+                bio=getbio.getText().toString();
                 motherlanguage=String.valueOf(spinner.getSelectedItem());
                 learnlanguage=String.valueOf(spinner2.getSelectedItem());
                 if(name.isEmpty())
@@ -166,6 +171,10 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
                 if(age.isEmpty())
                 {
                     Toast.makeText(getApplicationContext(),"Name is Empty",Toast.LENGTH_SHORT).show();
+                }
+                if(bio.isEmpty())
+                {
+                    Toast.makeText(getApplicationContext(),"bio is Empty",Toast.LENGTH_SHORT).show();
                 }
                 if(motherlanguage.isEmpty())
                 {
@@ -219,7 +228,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference databaseReference=firebaseDatabase.getReference(firebaseAuth.getUid());
 
-        userprofile muserprofile=new userprofile(name,firebaseAuth.getUid(),age,motherlanguage,learnlanguage);
+        userprofile muserprofile=new userprofile(name,firebaseAuth.getUid(),age,motherlanguage,learnlanguage,bio);
         databaseReference.setValue(muserprofile);
         Toast.makeText(getApplicationContext(),"User Profile Added Sucessfully",Toast.LENGTH_SHORT).show();
         sendImagetoStorage();
@@ -262,7 +271,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
                     public void onSuccess(Uri uri) {
                         ImageUriAcessToken=uri.toString();
                         Toast.makeText(getApplicationContext(),"URI get sucess",Toast.LENGTH_SHORT).show();
-                        firebasemodel =new firebasemodel( name,null,firebaseAuth.getUid(),null,age, motherlanguage, learnlanguage);
+                        firebasemodel =new firebasemodel( name,null,firebaseAuth.getUid(),null,age, motherlanguage, learnlanguage,bio);
                         sendDataTocloudFirestore();
 
                     }
@@ -297,6 +306,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         Map<String , Object> userdata=new HashMap<>();
         userdata.put("name",name);
         userdata.put("age",age);
+        userdata.put("bio",bio);
         userdata.put("image",ImageUriAcessToken);
         userdata.put("uid",firebaseAuth.getUid());
         userdata.put("motherlanguage",motherlanguage);

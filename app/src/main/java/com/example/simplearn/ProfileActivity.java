@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity  {
     private final static int CAMERA_CODE = 1;
     private final static int GALLERY_CODE = 2;
 
-    EditText mviewusername,myviewmotherlanguage,myvuewlearning,myviewage;
+    EditText mviewusername,myviewmotherlanguage,myvuewlearning,myviewage,bio;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     TextView mmovetoupdateprofile;
@@ -92,6 +92,7 @@ public class ProfileActivity extends AppCompatActivity  {
         myviewmotherlanguage=findViewById(R.id.viewmotherlanguage);
         myvuewlearning=findViewById(R.id.viewLearninglanguage);
         myviewage=findViewById(R.id.viewAge);
+        bio=findViewById(R.id.bio);
 
         mmovetoupdateprofile=findViewById(R.id.updateProfileSubmit);
         firebaseFirestore=FirebaseFirestore.getInstance();
@@ -133,6 +134,7 @@ public class ProfileActivity extends AppCompatActivity  {
                 }
                 //bioEt.setText(muserprofile.getBio());
                 mviewusername.setText(muserprofile.getUsername());
+                bio.setText(muserprofile.getBio());
                 myviewmotherlanguage.setText(muserprofile.getMotherlanguage());
                 myvuewlearning.setText(muserprofile.getLearnlanguage());
                 myviewage.setText(muserprofile.getAge());
@@ -145,6 +147,7 @@ public class ProfileActivity extends AppCompatActivity  {
             public void onClick(View view) {
 
                 String userName = mviewusername.getText().toString();
+                String mybio=bio.getText().toString();
                 String motherLanguage = myviewmotherlanguage.getText().toString();
                 String learningLanguage = myvuewlearning.getText().toString();
                 String age = myviewage.getText().toString();
@@ -154,6 +157,10 @@ public class ProfileActivity extends AppCompatActivity  {
                     problematicField = "User name";
                 }
                 if(age.isEmpty()) {
+                    myviewmotherlanguage.requestFocus();
+                    problematicField = "Age";
+                }
+                if(mybio.isEmpty()) {
                     myviewmotherlanguage.requestFocus();
                     problematicField = "Age";
                 }
@@ -180,6 +187,7 @@ public class ProfileActivity extends AppCompatActivity  {
                 //if(!bioEt.getText().toString().isEmpty())
                  //updateValues.put("bio", bioEt.getText().toString());
                 updateValues.put("age",age);
+                updateValues.put("bio",mybio);
                 updateValues.put("motherlanguage",motherLanguage);
                 updateValues.put("learnlanguage",learningLanguage);
                 updateValues.put("text", tweetText);
