@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ public class gamesFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     public String motherL,learnL;
+    private WebView mWebView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,6 +39,14 @@ public class gamesFragment extends Fragment {
         Button button3=(Button) view.findViewById(R.id.button3);
         Button button4=(Button) view.findViewById(R.id.button4);
         Button button5=(Button) view.findViewById(R.id.button5);
+        mWebView = view.findViewById(R.id.webview);
+
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        mWebView.setWebViewClient(new WebViewClient());
+
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -62,6 +74,8 @@ public class gamesFragment extends Fragment {
         });
 
 
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,44 +89,53 @@ public class gamesFragment extends Fragment {
 
                 switch(learnL) {
                     case "Hebrew":
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-hebrew#/en/Essentials"));
-                        startActivity(browserIntent);
+                        mWebView.loadUrl("https://www.loecsen.com/en/learn-hebrew#/en/Essentials");
+                        //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-hebrew#/en/Essentials"));
+                        //startActivity(browserIntent);
                         // code block
                         break;
                     case "German":
-                        Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-german#/en/Essentials"));
-                        startActivity(browserIntent2);
+                        mWebView.loadUrl("https://www.loecsen.com/en/learn-german#/en/Essentials");
+                        //Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-german#/en/Essentials"));
+                        //startActivity(browserIntent2);
                         // code blockcase
                         break;
                     case "Spanish":
-                        Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-spanish#/en/Essentials"));
-                        startActivity(browserIntent3);
+                        mWebView.loadUrl("https://www.loecsen.com/en/learn-spanish#/en/Essentials");
+                        //Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-spanish#/en/Essentials"));
+                        //startActivity(browserIntent3);
                         break;
 
                     case "chinease":
+                        mWebView.loadUrl("https://www.loecsen.com/en/learn-chinese#/en/Essentials");
 
-                        Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-chinese#/en/Essentials"));
-                        startActivity(browserIntent4);
+                        //Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-chinese#/en/Essentials"));
+                        //startActivity(browserIntent4);
                         break;
 
                     case "russian":
-                        Intent browserIntent5 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-russian#/en/Essentials"));
-                        startActivity(browserIntent5);
+                        mWebView.loadUrl("https://www.loecsen.com/en/learn-russian#/en/Essentials");
+                        //Intent browserIntent5 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-russian#/en/Essentials"));
+                        //startActivity(browserIntent5);
                         break;
 
                     case "Arabic":
-                        Intent browserIntent6 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-arabic#/en/Essentials"));
-                        startActivity(browserIntent6);
+                        mWebView.loadUrl("https://www.loecsen.com/en/learn-arabic#/en/Essentials");
+                        //Intent browserIntent6 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-arabic#/en/Essentials"));
+                        //startActivity(browserIntent6);
                         break;
                     case "Italian":
-                        Intent browserIntent7 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-italian#/en/Essentials"));
-                        startActivity(browserIntent7);
+                        mWebView.loadUrl("https://www.loecsen.com/en/learn-italian#/en/Essentials");
+                        //Intent browserIntent7 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-italian#/en/Essentials"));
+                        //startActivity(browserIntent7);
                         break;
                     case "Franche":
-                        Intent browserIntent8 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-french#/en/Essentials"));
-                        startActivity(browserIntent8);
+                        mWebView.loadUrl("https://www.loecsen.com/en/learn-french#/en/Essentials");
+                        //Intent browserIntent8 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-french#/en/Essentials"));
+                        //startActivity(browserIntent8);
                         break;
                     default:
+
                         // code block
                 }
 //                Fragment languageFragment = new languageFragment();
@@ -133,43 +156,51 @@ public class gamesFragment extends Fragment {
 
                 switch(learnL) {
                     case "German":
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/German.htm"));
-                        startActivity(browserIntent);
+                        mWebView.loadUrl("https://www.digitaldialects.com/German.htm");
+                        //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/German.htm"));
+                        //startActivity(browserIntent);
                         // code block
                         break;
                     case "Spanish":
-                        Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Spanish.htm"));
-                        startActivity(browserIntent2);
+                        mWebView.loadUrl("https://www.digitaldialects.com/Spanish.htm");
+                        //Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Spanish.htm"));
+                        //startActivity(browserIntent2);
                         // code blockcase
                         break;
                     case "chinese":
-                        Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Chinese.htm"));
-                        startActivity(browserIntent3);
+                        mWebView.loadUrl("https://www.digitaldialects.com/Chinese.htm");
+                        //Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Chinese.htm"));
+                        //startActivity(browserIntent3);
                         break;
 
                     case "russian":
+                        mWebView.loadUrl("https://www.digitaldialects.com/Russian.htm");
 
-                        Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Russian.htm"));
-                        startActivity(browserIntent4);
+                        //Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Russian.htm"));
+                        //startActivity(browserIntent4);
                         break;
 
                     case "Arabic":
-                        Intent browserIntent5 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Arabic.htm"));
-                        startActivity(browserIntent5);
+                        mWebView.loadUrl("https://www.digitaldialects.com/Arabic.htm");
+                        //Intent browserIntent5 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Arabic.htm"));
+                        //startActivity(browserIntent5);
                         break;
 
                     case "Italian":
-                        Intent browserIntent6 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Italian.htm"));
-                        startActivity(browserIntent6);
+                        mWebView.loadUrl("https://www.digitaldialects.com/Italian.htm");
+                        //Intent browserIntent6 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/Italian.htm"));
+                        //startActivity(browserIntent6);
                         break;
                     case "Franche":
-                        Intent browserIntent7 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/French.htm"));
-                        startActivity(browserIntent7);
+                        mWebView.loadUrl("https://www.digitaldialects.com/French.htm");
+                        //Intent browserIntent7 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/French.htm"));
+                        //startActivity(browserIntent7);
                         break;
 
                     default:
-                        Intent browserIntent8 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/French.htm"));
-                        startActivity(browserIntent8);
+                        mWebView.loadUrl("https://www.digitaldialects.com/French.htm");
+                        //Intent browserIntent8 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.digitaldialects.com/French.htm"));
+                        //startActivity(browserIntent8);
                         // code block
                 }
 
@@ -190,40 +221,48 @@ public class gamesFragment extends Fragment {
 
                 switch(learnL) {
                     case "Hebrew":
+
                         Intent intent = new Intent(getActivity(),WordGame.class);
                         startActivity(intent);
                         // code block
                         break;
                     case "English":
+
                         Intent intent2 = new Intent(getActivity(),WordGame.class);
                         startActivity(intent2);
                         // code blockcase
                         break;
                     case "Spanish":
+
                         Intent intent3 = new Intent(getActivity(),WordGame.class);
                         startActivity(intent3);
                         break;
 
                     case "chinease":
 
+
                         Intent intent4 = new Intent(getActivity(),WordGame.class);
                         startActivity(intent4);
                         break;
 
                     case "russian":
+
                         Intent intent5 = new Intent(getActivity(),WordGame.class);
                         startActivity(intent5);
                         break;
 
                     case "Arabic":
+
                         Intent intent6 = new Intent(getActivity(),WordGame.class);
                         startActivity(intent6);
                         break;
                     case "Italian":
+
                         Intent intent7 = new Intent(getActivity(),WordGame.class);
                         startActivity(intent7);
                         break;
                     case "Franche":
+
                         Intent intent8 = new Intent(getActivity(),WordGame.class);
                         startActivity(intent8);
                         break;

@@ -34,7 +34,6 @@ import com.squareup.picasso.Picasso;
 public class ChatFragment extends firebasemodel {
 
 
-
     private FirebaseFirestore firebaseFirestore;
     LinearLayoutManager linearLayoutManager;
     private FirebaseAuth firebaseAuth;
@@ -67,44 +66,42 @@ public class ChatFragment extends firebasemodel {
         mrecyclerview = v.findViewById(R.id.recyclerview);
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
 
-        documentReference.addSnapshotListener((value, error) -> {
-            if(value == null) return;
-            userprofile muserprofile= value.toObject(userprofile.class);
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                userprofile muserprofile= value.toObject(userprofile.class);
+                if(muserprofile == null) {
+                    userprofile profile = new userprofile();
+                    profile.setUserUID(firebaseAuth.getUid());
+                    firebaseFirestore.collection("Users")
+                            .document(firebaseAuth.getUid())
+                            .set(profile);
+                    return;
+                }
+                motherL= muserprofile.getMotherlanguage();
+                learnL=muserprofile.getLearnlanguage();
 
-            if(muserprofile == null) {
-                userprofile profile = new userprofile();
-                profile.setUserUID(firebaseAuth.getUid());
-                firebaseFirestore.collection("Users")
-                        .document(firebaseAuth.getUid())
-                        .set(profile);
-                return;
+
             }
-            motherL = muserprofile.getMotherlanguage();
-            learnL = muserprofile.getLearnlanguage();
-            attachChats(learnL, motherL);
         });
 
 
 
-        mrecyclerview.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mrecyclerview.setLayoutManager(linearLayoutManager);
-        return v;
-    }
 
-    private void attachChats(String filterByLearnLanguage, String filterByMotherLanguage) {
-        Query query = firebaseFirestore.collection("Users");
-               /* .whereNotEqualTo("uid", firebaseAuth.getUid());*/
 
-        /*if(filterByLearnLanguage != null && !filterByLearnLanguage.isEmpty())
-            query = query.whereEqualTo("learnlanguage", filterByLearnLanguage);*/
-      /*  if(filterByMotherLanguage != null && !filterByMotherLanguage.isEmpty())
-            query = query.whereEqualTo("motherlanguage", filterByLearnLanguage);
-*/
-        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions
-                .Builder<firebasemodel>()
-                .setQuery(query, firebasemodel.class).build();
+
+        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",motherL).whereEqualTo("motherlanguage",learnL);
+        //Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",getMotherlanguage()).whereEqualTo("motherlanguage",getLearnlanguage());
+
+
+
+
+//
+//
+//        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage","Spanish").whereEqualTo("motherlanguage","Hebrew");
+//        //Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",getMotherlanguage()).whereEqualTo("motherlanguage",getLearnlanguage());
+
+        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
 
         chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {
             @Override
@@ -142,8 +139,14 @@ public class ChatFragment extends firebasemodel {
                 return new NoteViewHolder(view);
             }
         };
+
+
+        mrecyclerview.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mrecyclerview.setLayoutManager(linearLayoutManager);
         mrecyclerview.setAdapter(chatAdapter);
-        chatAdapter.startListening();
+        return v;
     }
 
 
@@ -163,6 +166,11 @@ public class ChatFragment extends firebasemodel {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        chatAdapter.startListening();
+    }
 
     @Override
     public void onStop() {
@@ -173,3 +181,145 @@ public class ChatFragment extends firebasemodel {
     }
 }
 
+
+
+
+//
+//    private FirebaseFirestore firebaseFirestore;
+//    LinearLayoutManager linearLayoutManager;
+//    private FirebaseAuth firebaseAuth;
+//
+//
+//
+//
+//
+//
+//    ImageView mimageviewofuser;
+//
+//    FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder> chatAdapter;
+//
+//    RecyclerView mrecyclerview;
+//
+//    @NonNull firebasemodel firebasemodel1;
+//
+//    public String motherL,learnL;
+//
+//
+//
+//
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View v = inflater.inflate(R.layout.chatfragment, container, false);
+//
+//        firebaseAuth = FirebaseAuth.getInstance();
+//        firebaseFirestore = FirebaseFirestore.getInstance();
+//        mrecyclerview = v.findViewById(R.id.recyclerview);
+//        DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
+//
+//        documentReference.addSnapshotListener((value, error) -> {
+//            if(value == null) return;
+//            userprofile muserprofile= value.toObject(userprofile.class);
+//
+//            if(muserprofile == null) {
+//                userprofile profile = new userprofile();
+//                profile.setUserUID(firebaseAuth.getUid());
+//                firebaseFirestore.collection("Users")
+//                        .document(firebaseAuth.getUid())
+//                        .set(profile);
+//                return;
+//            }
+//            motherL = muserprofile.getMotherlanguage();
+//            learnL = muserprofile.getLearnlanguage();
+//            attachChats(learnL, motherL);
+//        });
+//
+//
+//
+//        mrecyclerview.setHasFixedSize(true);
+//        linearLayoutManager = new LinearLayoutManager(getContext());
+//        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+//        mrecyclerview.setLayoutManager(linearLayoutManager);
+//        return v;
+//    }
+//
+//    private void attachChats(String filterByLearnLanguage, String filterByMotherLanguage) {
+//        Query query = firebaseFirestore.collection("Users");
+//               /* .whereNotEqualTo("uid", firebaseAuth.getUid());*/
+//
+//        /*if(filterByLearnLanguage != null && !filterByLearnLanguage.isEmpty())
+//            query = query.whereEqualTo("learnlanguage", filterByLearnLanguage);*/
+//      /*  if(filterByMotherLanguage != null && !filterByMotherLanguage.isEmpty())
+//            query = query.whereEqualTo("motherlanguage", filterByLearnLanguage);
+//*/
+//        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions
+//                .Builder<firebasemodel>()
+//                .setQuery(query, firebasemodel.class).build();
+//
+//        chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {
+//            @Override
+//            protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i, @NonNull firebasemodel firebasemodel) {
+//
+//                noteViewHolder.particularusername.setText(firebasemodel.getName());
+//                String uri = firebasemodel.getImage();
+//                noteViewHolder.bio.setText(firebasemodel.getBio());
+//                Picasso.get().load(uri).into(mimageviewofuser);
+//                if (firebasemodel.getStatus().equals("Online")) {
+//
+//                    noteViewHolder.statusofuser.setText(firebasemodel.getStatus());
+//                    noteViewHolder.statusofuser.setTextColor(Color.GREEN);
+//                } else {
+//                    noteViewHolder.statusofuser.setText(firebasemodel.getStatus());
+//                }
+//
+//                noteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(getActivity(), SpecificChat.class);
+//                        intent.putExtra("name", firebasemodel.getName());
+//                        intent.putExtra("receiveruid", firebasemodel.getUid());
+//                        intent.putExtra("imageuri", firebasemodel.getImage());
+//                        startActivity(intent);
+//                    }
+//                });
+//            }
+//
+//            @NonNull
+//            @Override
+//            public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//
+//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chatviewlayout, parent, false);
+//                return new NoteViewHolder(view);
+//            }
+//        };
+//        mrecyclerview.setAdapter(chatAdapter);
+//        chatAdapter.startListening();
+//    }
+//
+//
+//    public class NoteViewHolder extends RecyclerView.ViewHolder {
+//
+//        private TextView particularusername;
+//        private TextView statusofuser;
+//        private TextView bio;
+//
+//
+//        public NoteViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            bio = itemView.findViewById(R.id.bio);
+//            particularusername = itemView.findViewById(R.id.nameofuser);
+//            statusofuser = itemView.findViewById(R.id.statusofuser);
+//            mimageviewofuser = itemView.findViewById(R.id.imageviewofuser);
+//        }
+//    }
+//
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (chatAdapter != null) {
+//            chatAdapter.stopListening();
+//        }
+//    }
+//}
+//
