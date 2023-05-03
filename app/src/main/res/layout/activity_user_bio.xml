@@ -22,18 +22,19 @@ tools:context=".UserBio">
         android:gravity="center_vertical">
 
 
-
         <ImageButton
-            android:id="@+id/backbuttonofviewprofile"
+            android:id="@+id/backbuttonofspecificchat"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-
             android:background="@android:color/transparent"
             android:src="@drawable/ic_baseline_arrow_back_24"
-            app:tint="@color/white">
+            android:tint="@color/white">
 
         </ImageButton>
+
+
+
 
 
         <TextView
@@ -42,7 +43,7 @@ tools:context=".UserBio">
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/backbuttonofviewprofile"
+            android:layout_toRightOf="@id/backbuttonofspecificchat"
             android:text="Your Profile"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -94,19 +95,14 @@ tools:context=".UserBio">
         </androidx.cardview.widget.CardView>
 
 
-        <ImageView
-            android:id="@+id/logoofviewprofile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_baseline_person_24"
-            app:tint="#716e6e" />
+
 
 
         <TextView
             android:id="@+id/viewusername"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_centerInParent="true"
             android:hint="Enter Your Name Here"
             android:inputType="textCapWords">
 

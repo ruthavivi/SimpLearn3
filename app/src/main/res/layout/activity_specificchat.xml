@@ -42,6 +42,17 @@
                 app:cardCornerRadius="40dp">
 
 
+                <ImageView
+                    android:id="@+id/specificuserimageinimageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-137dp"
+                    android:layout_marginEnd="-68dp"
+
+
+                    android:layout_marginRight="-423dp"
+                    android:padding="2dp"
+                    android:src="@drawable/defaultprofile" />
             </androidx.cardview.widget.CardView>
 
 
@@ -69,19 +80,6 @@
                 android:padding="16dp"
                 android:src="@drawable/ic_call"
                 app:tint="@color/white" />
-
-            <ImageView
-                android:id="@+id/specificuserimageinimageview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@id/backbuttonofspecificchat"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="-137dp"
-                android:padding="2dp"
-
-
-                android:src="@drawable/defaultprofile" />
 
 
         </RelativeLayout>

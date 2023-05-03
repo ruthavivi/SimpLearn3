@@ -110,6 +110,7 @@ public class SpecificChat extends AppCompatActivity implements VideoEnterRoomNum
         learnlanguage=getIntent().getStringExtra("learnLanguage");
         age=getIntent().getStringExtra("age");
         bio=getIntent().getStringExtra("bio");
+        String uri = intent.getStringExtra("imageuri");
 
 
 
@@ -127,6 +128,7 @@ public class SpecificChat extends AppCompatActivity implements VideoEnterRoomNum
                 intent.putExtra("learnLanguage",learnlanguage);
                 intent.putExtra("age",age);
                 intent.putExtra("bio",bio);
+                intent.putExtra("imageuri",uri);
 
                 startActivity(intent);
             }
@@ -161,7 +163,7 @@ public class SpecificChat extends AppCompatActivity implements VideoEnterRoomNum
 
 
         mnameofspecificuser.setText(mrecievername);
-        String uri = intent.getStringExtra("imageuri");
+        //String uri = intent.getStringExtra("imageuri");
         if (uri.isEmpty()) {
             Toast.makeText(getApplicationContext(), "null is recieved", Toast.LENGTH_SHORT).show();
         } else {
