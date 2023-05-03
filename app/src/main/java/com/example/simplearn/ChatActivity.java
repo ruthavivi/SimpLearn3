@@ -19,9 +19,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.simplearn.chat.SpecificChat;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -43,6 +45,7 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
     androidx.appcompat.widget.Toolbar mtoolbar;
      Spinner spinner;
     Button button;
+    ImageButton button11;
 
     FirebaseAuth firebaseAuth;
 
@@ -85,6 +88,7 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
         viewPager.setAdapter(pagerAdapter);
 
         button=(Button)findViewById(R.id.button10);
+        button11=(ImageButton)findViewById(R.id.button11);
 
         spinner.setOnItemSelectedListener(this);
         // Spinner Drop down elements
@@ -137,6 +141,15 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
                 HashMap<String,Object> updateValues = new HashMap<>();
                 updateValues.put("learnlanguage",learnlanguage);
                 saveUserDetails(updateValues);
+            }
+        });
+        button11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(ChatActivity.this, Translate.class);
+
+                startActivity(intent);
             }
         });
 

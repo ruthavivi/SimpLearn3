@@ -33,6 +33,15 @@
 
             </TextView>
 
+            <ImageButton
+                android:id="@+id/button11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_toEndOf="@+id/myapptext"
+
+
+                tools:src="@android:drawable/btn_star_big_on" />
 
 
             <Button
@@ -41,12 +50,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
 
-                android:layout_toEndOf="@+id/myapptext"
+                android:layout_toEndOf="@+id/button11"
 
 
                 android:backgroundTint="#00BCD4"
                 android:text="save"
-                />
+                android:textSize="8sp" />
 
             <Spinner
                 android:id="@+id/spinner"
@@ -61,8 +70,9 @@
                 android:layout_toEndOf="@+id/myapptext"
 
 
-
                 android:prompt="@string/spinner_title" />
+
+
 
 
 
