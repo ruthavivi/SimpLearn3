@@ -15,6 +15,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,12 +32,15 @@ public class articleFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     public String motherL,learnL;
     private WebView mWebView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.articlefragment,container, false);
 
         mWebView = view.findViewById(R.id.webview);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
 
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -127,6 +133,15 @@ public class articleFragment extends Fragment {
         }, 50); // מחכה למשך 5 שניות לפני שהופעל ה switch case
 
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                reloadFragment();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
 
 
 
@@ -136,5 +151,11 @@ public class articleFragment extends Fragment {
 
 
     }
+
+    private void reloadFragment() {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.detach(this).attach(this).commit();
     }
+}
 

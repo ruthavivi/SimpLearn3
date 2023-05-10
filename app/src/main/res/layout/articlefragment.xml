@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/news">
+    android:layout_height="match_parent">
 
-
-
-
-
-    <LinearLayout
-        android:id="@+id/linear_layout2"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@drawable/news">
 
-        <WebView
-            android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <LinearLayout
+            android:id="@+id/linear_layout2"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
+        </LinearLayout>
 
+    </RelativeLayout>
 
-</RelativeLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

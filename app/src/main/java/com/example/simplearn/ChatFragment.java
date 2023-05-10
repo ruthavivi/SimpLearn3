@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.simplearn.chat.SpecificChat;
 
@@ -31,7 +32,7 @@ import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
 
-public class ChatFragment extends firebasemodel {
+public class ChatFragment extends firebasemodel implements SwipeRefreshLayout.OnRefreshListener {
 
 
     private FirebaseFirestore firebaseFirestore;
@@ -52,6 +53,7 @@ public class ChatFragment extends firebasemodel {
     @NonNull firebasemodel firebasemodel1;
 
     public String motherL,learnL;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
 
 
@@ -64,6 +66,9 @@ public class ChatFragment extends firebasemodel {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         mrecyclerview = v.findViewById(R.id.recyclerview);
+        mSwipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
 
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -184,6 +189,18 @@ public class ChatFragment extends firebasemodel {
         if (chatAdapter != null) {
             chatAdapter.stopListening();
         }
+
+
+
+    }
+
+
+    @Override
+    public void onRefresh() {
+        // Refresh data here
+        chatAdapter.notifyDataSetChanged();
+
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }
 
