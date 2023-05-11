@@ -17,16 +17,18 @@
         android:background="#0396A8">
 
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/simple"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/toolbar"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/myapptext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MyChatApp"
+                android:text="SimpLearn"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold">
@@ -38,46 +40,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_toEndOf="@+id/myapptext"
+
 
 
                 tools:src="@android:drawable/btn_star_big_on" />
 
 
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+
+                android:prompt="@string/spinner_title" />
+
             <Button
                 android:id="@+id/button10"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
+                android:layout_height="match_parent"
 
-                android:layout_toEndOf="@+id/button11"
 
 
                 android:backgroundTint="#00BCD4"
                 android:text="save"
                 android:textSize="8sp" />
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="3dp"
-
-                android:layout_marginBottom="3dp"
-                android:layout_toEndOf="@+id/myapptext"
 
 
-                android:prompt="@string/spinner_title" />
+
+
+        </LinearLayout>
 
 
 
 
 
 
-        </RelativeLayout>
 
 
     </androidx.appcompat.widget.Toolbar>

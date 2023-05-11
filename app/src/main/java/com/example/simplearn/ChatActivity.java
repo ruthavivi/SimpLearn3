@@ -119,7 +119,11 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
                 viewPager.setCurrentItem(tab.getPosition());
                 if (tab.getPosition() == 0 || tab.getPosition() == 1 || tab.getPosition() == 2) {
                     pagerAdapter.notifyDataSetChanged();
+
                 }
+
+
+
             }
 
             @Override
@@ -130,7 +134,11 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+
+
             }
+
+
         });
 
 
