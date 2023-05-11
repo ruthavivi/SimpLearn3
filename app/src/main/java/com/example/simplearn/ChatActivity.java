@@ -4,6 +4,9 @@ package com.example.simplearn;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlertDialog;
@@ -141,6 +144,20 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
                 HashMap<String,Object> updateValues = new HashMap<>();
                 updateValues.put("learnlanguage",learnlanguage);
                 saveUserDetails(updateValues);
+                //Create an Intent to launch the main activity
+                Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+
+//Clear the activity stack
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+//Finish the current activity
+                finish();
+
+//Start the main activity
+                startActivity(intent);
+
+
+
             }
         });
         button11.setOnClickListener(new View.OnClickListener() {
