@@ -6,24 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".Translate">
 
-    <ImageButton
-        android:id="@+id/backbuttonofspecificchat"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_baseline_arrow_back_24"
-        android:tint="@color/white"
-        tools:ignore="MissingConstraints">
 
-    </ImageButton>
 
     <LinearLayout
         android:id="@+id/linear_layout2"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
+
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/backbuttonofspecificchat"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:tint="@color/black"
+            tools:ignore="MissingConstraints">
+
+        </ImageButton>
 
         <WebView
             android:id="@+id/webview"
