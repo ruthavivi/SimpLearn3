@@ -49,8 +49,11 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
      Spinner spinner;
     Button button;
     ImageButton button11;
+    String learnlanguage;
 
     FirebaseAuth firebaseAuth;
+
+    HashMap<String,Object> updateValues;
 
 
     FirebaseFirestore firebaseFirestore;
@@ -90,12 +93,13 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
 
-        button=(Button)findViewById(R.id.button10);
+
         button11=(ImageButton)findViewById(R.id.button11);
 
         spinner.setOnItemSelectedListener(this);
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
+        categories.add("Language");
         categories.add("English");
         categories.add("Hebrew");
         categories.add("Spanish");
@@ -110,6 +114,149 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
+        int spinnerPosition = dataAdapter.getPosition("Language");
+        spinner.setSelection(spinnerPosition);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if(selectedItem.equals("Hebrew")){
+                    learnlanguage="Hebrew";
+                    updateValues = new HashMap<>();
+                    updateValues.put("learnlanguage",learnlanguage);
+                    saveUserDetails(updateValues);
+                    //Create an Intent to launch the main activity
+                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+
+
+
+//Finish the current activity
+                    //finish();
+
+//Start the main activity
+                    startActivity(intent);
+
+                }
+                if(selectedItem.equals("Arabic")){
+                    learnlanguage="Arabic";
+                    updateValues = new HashMap<>();
+                    updateValues.put("learnlanguage",learnlanguage);
+                    saveUserDetails(updateValues);
+                    //Create an Intent to launch the main activity
+                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+
+
+
+//Finish the current activity
+                    //finish();
+
+//Start the main activity
+                    startActivity(intent);
+
+                }
+                if(selectedItem.equals("Spanish")){
+                    learnlanguage="Spanish";
+                    updateValues = new HashMap<>();
+                    updateValues.put("learnlanguage",learnlanguage);
+                    saveUserDetails(updateValues);
+                    //Create an Intent to launch the main activity
+                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+
+
+
+//Finish the current activity
+                    //finish();
+
+//Start the main activity
+                    startActivity(intent);
+
+                }
+
+                if(selectedItem.equals("russian")){
+                    learnlanguage="russian";
+                    updateValues = new HashMap<>();
+                    updateValues.put("learnlanguage",learnlanguage);
+                    saveUserDetails(updateValues);
+                    //Create an Intent to launch the main activity
+                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+
+
+
+//Finish the current activity
+                    //finish();
+
+//Start the main activity
+                    startActivity(intent);
+
+                }
+                if(selectedItem.equals("Hebrew")){
+                    learnlanguage="Hebrew";
+                    updateValues = new HashMap<>();
+                    updateValues.put("learnlanguage",learnlanguage);
+                    saveUserDetails(updateValues);
+                    //Create an Intent to launch the main activity
+                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+
+
+
+//Finish the current activity
+                    //finish();
+
+//Start the main activity
+                    startActivity(intent);
+
+                }
+
+                if(selectedItem.equals("chinese")){
+                    learnlanguage="chinese";
+                    updateValues = new HashMap<>();
+                    updateValues.put("learnlanguage",learnlanguage);
+                    saveUserDetails(updateValues);
+                    //Create an Intent to launch the main activity
+                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+
+
+
+//Finish the current activity
+                    //finish();
+
+//Start the main activity
+                    startActivity(intent);
+
+                }
+                if(selectedItem.equals("English")){
+                    learnlanguage="English";
+                    updateValues = new HashMap<>();
+                    updateValues.put("learnlanguage",learnlanguage);
+                    saveUserDetails(updateValues);
+                    //Create an Intent to launch the main activity
+                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+
+
+
+//Finish the current activity
+                    //finish();
+
+//Start the main activity
+                    startActivity(intent);
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+
+
+
+
+
+
 
 
 
@@ -120,7 +267,10 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (tab.getPosition() == 0 || tab.getPosition() == 1 || tab.getPosition() == 2) {
                     pagerAdapter.notifyDataSetChanged();
 
+
                 }
+
+
 
 
 
@@ -144,30 +294,7 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String learnlanguage = String.valueOf(spinner.getSelectedItem());
 
-                HashMap<String,Object> updateValues = new HashMap<>();
-                updateValues.put("learnlanguage",learnlanguage);
-                saveUserDetails(updateValues);
-                //Create an Intent to launch the main activity
-                Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
-
-//Clear the activity stack
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-//Finish the current activity
-                finish();
-
-//Start the main activity
-                startActivity(intent);
-
-
-
-            }
-        });
         button11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
