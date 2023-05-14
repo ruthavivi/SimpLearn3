@@ -85,6 +85,15 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 
+        // When there is not user on this screen -> move to MainActivity
+        // usually activates with getCurrentUser() == null when user signs out
+        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+            if(firebaseAuth.getCurrentUser()==null) {
+                finish();
+                startActivity(new Intent(ChatActivity.this, MainActivity.class));
+            }
+        });
+
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_baseline_more_vert_24);
         mtoolbar.setOverflowIcon(drawable);
 

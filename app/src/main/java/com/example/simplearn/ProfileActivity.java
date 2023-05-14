@@ -27,8 +27,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -120,6 +123,7 @@ public class ProfileActivity extends AppCompatActivity  {
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(FirebaseAuth.getInstance().getCurrentUser()==null)return;
                 userprofile muserprofile= value.toObject(userprofile.class);
                 if(muserprofile == null) {
                     userprofile profile = new userprofile();
@@ -269,6 +273,65 @@ public class ProfileActivity extends AppCompatActivity  {
             dialog.show();
         });
 
+        TextView deleteBtn = findViewById(R.id.profileDeleteBtn);
+
+        deleteBtn.setOnClickListener(v -> {
+
+            AlertDialog deleteAccountDialog = new AlertDialog.Builder(ProfileActivity.this)
+                    .setTitle("Delete Account")
+                    .setMessage("Are you sure you would like to delete your account? this action is ireversble")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            System.out.println("Deleting account>");
+
+                            String uid = FirebaseAuth.getInstance().getUid();
+                            // Delete the authentication document
+                            FirebaseAuth.getInstance()
+                                    .getCurrentUser()
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            finish();
+                                            FirebaseAuth.getInstance().signOut();
+                                            // Delete the firestore document
+                                            FirebaseFirestore.getInstance()
+                                                    .collection("Users")
+                                                    .document(uid)
+                                                    .delete();
+                                            // Delete all related chats
+                                            FirebaseDatabase.getInstance()
+                                                    .getReference()
+                                                    .child("chats")
+                                                    .get()
+                                                    .addOnSuccessListener(dataSnapshot -> {
+                                                        for(DataSnapshot chatRoomSnapshot : dataSnapshot.getChildren()) {
+                                                            String roomId = chatRoomSnapshot.getKey();
+                                                            boolean userInRoom = roomId.contains(uid);
+                                                            if(userInRoom)
+                                                                dataSnapshot.getRef().removeValue();
+                                                        }
+                                                    });
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                            if(e instanceof FirebaseAuthRecentLoginRequiredException) {
+                                                Snackbar.make(mtoolbarofviewprofile,
+                                                        "In order to delete your account, a relog is required. please log out and sign in again in order to delete your account."
+                                                        ,Snackbar.LENGTH_SHORT).show();
+                                            }
+
+                                        }
+                                    });
+                        }
+                    }).setNegativeButton("No",null)
+                    .create();
+
+            deleteAccountDialog.show();
+        });
     }
 
     public static byte[] getBytesFromBitmap(Bitmap bitmap) {
@@ -314,8 +377,11 @@ public class ProfileActivity extends AppCompatActivity  {
     @Override
     protected void onStop() {
         super.onStop();
-        DocumentReference documentReference=firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
-        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+        if(FirebaseAuth.getInstance().getCurrentUser()==null)return;
+        DocumentReference documentReference=firebaseFirestore.collection("Users")
+                .document(firebaseAuth.getUid());
+        documentReference.update("status","Offline")
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getApplicationContext(),"Now User is Offline",Toast.LENGTH_SHORT).show();
