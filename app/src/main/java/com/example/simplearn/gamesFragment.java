@@ -29,6 +29,7 @@ public class gamesFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     public String motherL,learnL;
     private WebView mWebView;
+    String ll,ml,url;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,7 +80,81 @@ public class gamesFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWebView.loadUrl("https://www.50languages.com/games/memo/he/es/1/1/");
+                switch(learnL) {
+                    case "Hebrew":
+                        ll="he";
+                        break;
+                    case "German":
+                        ll="de";
+                        break;
+                    case "English":
+                        ll="en";
+                        break;
+                    case "Spanish":
+                        ll="es";
+                        break;
+
+                    case "chinease":
+                        ll="zh";
+                        break;
+
+                    case "russian":
+                        ll="ru";
+                        break;
+
+                    case "Arabic":
+                        ll="ar";
+                        break;
+                    case "Italian":
+                        ll="it";
+                        break;
+                    case "Franche":
+                        ll="fr";
+                        break;
+                    default:
+
+                        // code block
+                }
+
+                switch(motherL) {
+                    case "Hebrew":
+                        ml="he";
+                        break;
+                    case "German":
+                        ml="de";
+                        break;
+                    case "English":
+                        ml="en";
+                        break;
+                    case "Spanish":
+                        ml="es";
+                        break;
+
+                    case "chinease":
+                        ml="zh";
+                        break;
+
+                    case "russian":
+                        ml="ru";
+                        break;
+
+                    case "Arabic":
+                        ml="ar";
+                        break;
+                    case "Italian":
+                        ml="it";
+                        break;
+                    case "Franche":
+                        ml="fr";
+                        break;
+                    default:
+
+                        // code block
+                }
+
+
+                url="https://50languages.com/"+ml+"/game/memo/"+ll+"/0";
+                mWebView.loadUrl(url);
                 //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.50languages.com/games/memo/he/es/1/1/"));
                 //startActivity(browserIntent);
             }
@@ -87,66 +162,86 @@ public class gamesFragment extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 switch(learnL) {
                     case "Hebrew":
-                        mWebView.loadUrl("https://www.loecsen.com/en/learn-hebrew#/en/Essentials");
-                        //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-hebrew#/en/Essentials"));
-                        //startActivity(browserIntent);
-                        // code block
+                        ll="he";
                         break;
                     case "German":
-                        mWebView.loadUrl("https://www.loecsen.com/en/learn-german#/en/Essentials");
-                        //Intent browserIntent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-german#/en/Essentials"));
-                        //startActivity(browserIntent2);
-                        // code blockcase
+                        ll="de";
+                        break;
+                    case "English":
+                        ll="en";
                         break;
                     case "Spanish":
-                        mWebView.loadUrl("https://www.loecsen.com/en/learn-spanish#/en/Essentials");
-                        //Intent browserIntent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-spanish#/en/Essentials"));
-                        //startActivity(browserIntent3);
+                        ll="es";
                         break;
 
                     case "chinease":
-                        mWebView.loadUrl("https://www.loecsen.com/en/learn-chinese#/en/Essentials");
-
-                        //Intent browserIntent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-chinese#/en/Essentials"));
-                        //startActivity(browserIntent4);
+                        ll="zh";
                         break;
 
                     case "russian":
-                        mWebView.loadUrl("https://www.loecsen.com/en/learn-russian#/en/Essentials");
-                        //Intent browserIntent5 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-russian#/en/Essentials"));
-                        //startActivity(browserIntent5);
+                        ll="ru";
                         break;
 
                     case "Arabic":
-                        mWebView.loadUrl("https://www.loecsen.com/en/learn-arabic#/en/Essentials");
-                        //Intent browserIntent6 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-arabic#/en/Essentials"));
-                        //startActivity(browserIntent6);
+                        ll="ar";
                         break;
                     case "Italian":
-                        mWebView.loadUrl("https://www.loecsen.com/en/learn-italian#/en/Essentials");
-                        //Intent browserIntent7 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-italian#/en/Essentials"));
-                        //startActivity(browserIntent7);
+                        ll="it";
                         break;
                     case "Franche":
-                        mWebView.loadUrl("https://www.loecsen.com/en/learn-french#/en/Essentials");
-                        //Intent browserIntent8 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.loecsen.com/en/learn-french#/en/Essentials"));
-                        //startActivity(browserIntent8);
+                        ll="fr";
                         break;
                     default:
 
                         // code block
                 }
-//                Fragment languageFragment = new languageFragment();
-//                FragmentTransaction fm=getActivity().getSupportFragmentManager().beginTransaction();
-//                fm.replace(R.id.fragment_container,languageFragment).commit();
+
+                switch(motherL) {
+                    case "Hebrew":
+                        ml="he";
+                        break;
+                    case "German":
+                        ml="de";
+                        break;
+                    case "English":
+                        ml="en";
+                        break;
+                    case "Spanish":
+                        ml="es";
+                        break;
+
+                    case "chinease":
+                        ml="zh";
+                        break;
+
+                    case "russian":
+                        ml="ru";
+                        break;
+
+                    case "Arabic":
+                        ml="ar";
+                        break;
+                    case "Italian":
+                        ml="it";
+                        break;
+                    case "Franche":
+                        ml="fr";
+                        break;
+                    default:
+
+                        // code block
+                }
 
 
 
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.50languages.com/games/memo/he/es/1/1/"));
-//                startActivity(browserIntent);
+
+
+                url="https://50languages.com/"+ml+"/game/find_opposites/"+ll;
+                mWebView.loadUrl(url);
+                //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.50languages.com/games/memo/he/es/1/1/"));
+                //startActivity(browserIntent);
             }
         });
 
