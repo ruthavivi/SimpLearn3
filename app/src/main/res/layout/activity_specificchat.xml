@@ -13,12 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="0dp"
-        android:background="#075e54">
+        android:background="#10433D">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/simple"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/toolbarofspecificchat"
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/backbuttonofspecificchat"
@@ -37,8 +39,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/backbuttonofspecificchat"
+
                 app:cardCornerRadius="40dp">
 
 
@@ -46,11 +47,8 @@
                     android:id="@+id/specificuserimageinimageview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="-137dp"
-                    android:layout_marginEnd="-68dp"
 
 
-                    android:layout_marginRight="-423dp"
                     android:padding="2dp"
                     android:src="@drawable/defaultprofile" />
             </androidx.cardview.widget.CardView>
@@ -61,10 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="43dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginEnd="118dp"
-                android:layout_toEndOf="@+id/cardviewofspeficuser"
+
                 android:padding="13dp"
                 android:text="Name of User"
                 android:textColor="@color/white"
@@ -73,17 +68,20 @@
 
             <ImageView
                 android:id="@+id/video_call_btn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
+
+                android:layout_alignParentRight="true"
+
+
+
+
                 android:padding="16dp"
                 android:src="@drawable/ic_call"
                 app:tint="@color/white" />
 
 
-        </RelativeLayout>
-
+        </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
