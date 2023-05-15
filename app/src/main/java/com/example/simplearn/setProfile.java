@@ -184,10 +184,10 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
                 {
                     Toast.makeText(getApplicationContext(),"choose learn language",Toast.LENGTH_SHORT).show();
                 }
-                else if(imagepath==null)
-                {
-                    Toast.makeText(getApplicationContext(),"Image is Empty",Toast.LENGTH_SHORT).show();
-                }
+//                else if(imagepath==null)
+//                {
+//                    Toast.makeText(getApplicationContext(),"Image is Empty",Toast.LENGTH_SHORT).show();
+//                }
                 else
                 {
 
