@@ -2,7 +2,7 @@ package com.example.simplearn;
 
 public class userprofile {
 
-
+    public boolean soundOn;
     public String username,userUID,age,motherlanguage,learnlanguage,bio;
     public String image;
     public userprofile() {
@@ -16,7 +16,8 @@ public class userprofile {
         this.learnlanguage=learnlanguage;
         this.bio=bio;
     }
-
+    public boolean isSoundOn() {return soundOn;}
+    public void setSoundOn(boolean soundOn) {this.soundOn = soundOn;}
     public String getImage() {
         return image;
     }

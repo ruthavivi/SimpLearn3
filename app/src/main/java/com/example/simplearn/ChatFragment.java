@@ -1,6 +1,7 @@
 package com.example.simplearn;
 
 //test
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.example.simplearn.chat.SpecificChat;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,6 +31,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 
@@ -50,7 +53,6 @@ public class ChatFragment extends firebasemodel implements SwipeRefreshLayout.On
 
     RecyclerView mrecyclerview;
 
-    @NonNull firebasemodel firebasemodel1;
 
     public String motherL,learnL;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -74,39 +76,69 @@ public class ChatFragment extends firebasemodel implements SwipeRefreshLayout.On
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                userprofile muserprofile= value.toObject(userprofile.class);
-                if(muserprofile == null) {
+                if(value == null || !value.exists()) { // user left the save-profile page when registered
                     userprofile profile = new userprofile();
+                    profile.setMotherlanguage("Hebrew");
+                    profile.setLearnlanguage("Spanish");
                     profile.setUserUID(firebaseAuth.getUid());
                     firebaseFirestore.collection("Users")
                             .document(firebaseAuth.getUid())
                             .set(profile);
                     return;
                 }
-                motherL= muserprofile.getMotherlanguage();
-                learnL=muserprofile.getLearnlanguage();
-
-
+                userprofile muserprofile= value.toObject(userprofile.class);
+                if(muserprofile==null)return; // unknown error
+                motherL = muserprofile.getMotherlanguage();
+                learnL = muserprofile.getLearnlanguage();
+                // Create the chat adapter whenever the user languages changes (or at first entry)
+                createChatAdapter();
             }
         });
 
 
 
 
+        mrecyclerview.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mrecyclerview.setLayoutManager(linearLayoutManager);
+        return v;
+    }
 
 
-        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",motherL).whereEqualTo("motherlanguage",learnL);
-        //Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",getMotherlanguage()).whereEqualTo("motherlanguage",getLearnlanguage());
+    public class NoteViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView particularusername;
+        private TextView statusofuser;
+        private TextView bio;
 
 
+        public NoteViewHolder(@NonNull View itemView) {
+            super(itemView);
+            bio = itemView.findViewById(R.id.bio);
+            particularusername = itemView.findViewById(R.id.nameofuser);
+            statusofuser = itemView.findViewById(R.id.statusofuser);
+            mimageviewofuser = itemView.findViewById(R.id.imageviewofuser);
+        }
+    }
+
+    private void createChatAdapter() {
+        // if chat adapter already exists, stop listening and create new adapter with new user settings
+        if(chatAdapter!=null && chatAdapter.getSnapshots().isListening()) {
+            chatAdapter.stopListening();
+        }
+        /*
+            The user only sees users that their mother language
+            are the same with as the current user's learning language
+         */
+        Query query = firebaseFirestore.collection("Users")
+                .whereNotEqualTo("uid", firebaseAuth.getUid())
+                .whereEqualTo("motherlanguage", learnL)
+                .whereEqualTo("learnlanguage", motherL);
 
 
-//
-//
-//        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage","Spanish").whereEqualTo("motherlanguage","Hebrew");
-//        //Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid", firebaseAuth.getUid()).whereEqualTo("learnlanguage",getMotherlanguage()).whereEqualTo("motherlanguage",getLearnlanguage());
-
-        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query, firebasemodel.class).build();
+        FirestoreRecyclerOptions<firebasemodel> allusername = new FirestoreRecyclerOptions.Builder<firebasemodel>()
+                .setQuery(query, firebasemodel.class).build();
 
         chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {
             @Override
@@ -138,8 +170,6 @@ public class ChatFragment extends firebasemodel implements SwipeRefreshLayout.On
                         startActivity(intent);
                     }
                 });
-
-
             }
 
             @NonNull
@@ -150,37 +180,13 @@ public class ChatFragment extends firebasemodel implements SwipeRefreshLayout.On
                 return new NoteViewHolder(view);
             }
         };
-
-
-        mrecyclerview.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mrecyclerview.setLayoutManager(linearLayoutManager);
         mrecyclerview.setAdapter(chatAdapter);
-        return v;
-    }
-
-
-    public class NoteViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView particularusername;
-        private TextView statusofuser;
-        private TextView bio;
-
-
-        public NoteViewHolder(@NonNull View itemView) {
-            super(itemView);
-            bio = itemView.findViewById(R.id.bio);
-            particularusername = itemView.findViewById(R.id.nameofuser);
-            statusofuser = itemView.findViewById(R.id.statusofuser);
-            mimageviewofuser = itemView.findViewById(R.id.imageviewofuser);
-        }
+        chatAdapter.startListening();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        chatAdapter.startListening();
     }
 
     @Override
@@ -189,9 +195,6 @@ public class ChatFragment extends firebasemodel implements SwipeRefreshLayout.On
         if (chatAdapter != null) {
             chatAdapter.stopListening();
         }
-
-
-
     }
 
 
@@ -199,7 +202,6 @@ public class ChatFragment extends firebasemodel implements SwipeRefreshLayout.On
     public void onRefresh() {
         // Refresh data here
         chatAdapter.notifyDataSetChanged();
-
         mSwipeRefreshLayout.setRefreshing(false);
     }
 }

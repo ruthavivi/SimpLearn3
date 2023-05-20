@@ -192,23 +192,21 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
                 {
 
                     mprogressbarofsetprofile.setVisibility(View.VISIBLE);
-                    sendDataForNewUser();
-                    mprogressbarofsetprofile.setVisibility(View.INVISIBLE);
-                    Intent intent=new Intent(setProfile.this, ChatActivity.class);
-                    intent.putExtra("motherlanguage",motherlanguage);
-                    startActivity(intent);
-                    finish();
-
-
+                        sendDataForNewUser();
                 }
             }
         });
 
+        
 
 
-
-
-
+    }
+    public void profileSaved() {
+        mprogressbarofsetprofile.setVisibility(View.INVISIBLE);
+        Intent intent=new Intent(setProfile.this, ChatActivity.class);
+        intent.putExtra("motherlanguage",motherlanguage);
+        startActivity(intent);
+        finish();
     }
 
 
@@ -231,8 +229,10 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
         userprofile muserprofile=new userprofile(name,firebaseAuth.getUid(),age,motherlanguage,learnlanguage,bio);
         databaseReference.setValue(muserprofile);
         Toast.makeText(getApplicationContext(),"User Profile Added Sucessfully",Toast.LENGTH_SHORT).show();
+        if(imagepath!=null)
         sendImagetoStorage();
-
+        else
+            sendDataTocloudFirestore();
 
 
 
@@ -240,6 +240,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
 
     private void sendImagetoStorage()
     {
+
 
         StorageReference imageref=storageReference.child("Images").child(firebaseAuth.getUid()).child("Profile Pic");
 
@@ -271,7 +272,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
                     public void onSuccess(Uri uri) {
                         ImageUriAcessToken=uri.toString();
                         Toast.makeText(getApplicationContext(),"URI get sucess",Toast.LENGTH_SHORT).show();
-                        firebasemodel =new firebasemodel( name,null,firebaseAuth.getUid(),null,age, motherlanguage, learnlanguage,bio);
+                        firebasemodel =new firebasemodel( name,uri.toString(),firebaseAuth.getUid(),null,age, motherlanguage, learnlanguage,bio);
                         sendDataTocloudFirestore();
 
                     }
@@ -318,7 +319,7 @@ public class setProfile extends AppCompatActivity implements AdapterView.OnItemS
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getApplicationContext(),"Data on Cloud Firestore send success",Toast.LENGTH_SHORT).show();
-
+                profileSaved();
             }
         });
 

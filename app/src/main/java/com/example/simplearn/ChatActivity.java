@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -50,7 +52,7 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
     Button button;
     ImageButton button11;
     String learnlanguage;
-
+    userprofile userprofile;
     FirebaseAuth firebaseAuth;
 
     HashMap<String,Object> updateValues;
@@ -59,6 +61,33 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
     FirebaseFirestore firebaseFirestore;
 
 
+
+
+
+    private void getUser(OnSuccessListener<userprofile> success) {
+        FirebaseFirestore.getInstance().collection("Users")
+                .document(FirebaseAuth.getInstance().getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists())
+                            success.onSuccess(documentSnapshot.toObject(userprofile.class));
+                    }
+                });
+    }
+
+
+    private void saveUser(userprofile profile, OnSuccessListener<userprofile> success) {
+        FirebaseFirestore.getInstance().collection("Users")
+                .document(FirebaseAuth.getInstance().getUid())
+                .set(profile)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void documentSnapshot) {
+                    }
+                });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +110,6 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mtoolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
-
 
 
 
@@ -121,150 +149,43 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+
+
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
         int spinnerPosition = dataAdapter.getPosition("Language");
         spinner.setSelection(spinnerPosition);
 
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        getUser(new OnSuccessListener<userprofile>() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                if(selectedItem.equals("Hebrew")){
-                    learnlanguage="Hebrew";
-                    updateValues = new HashMap<>();
-                    updateValues.put("learnlanguage",learnlanguage);
-                    saveUserDetails(updateValues);
-                    //Create an Intent to launch the main activity
-                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+            public void onSuccess(userprofile userprofile) {
+                ChatActivity.this.userprofile = userprofile;
+                spinner.setSelection(dataAdapter.getPosition(userprofile.getLearnlanguage()));
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        if("Language".equals( parent.getItemAtPosition(position).toString())) return;
+                        learnlanguage = parent.getItemAtPosition(position).toString();
+                        updateValues = new HashMap<>();
+                        updateValues.put("learnlanguage", learnlanguage);
+                        saveUserDetails(updateValues);
+                        //Create an Intent to launch the main activity
+                        // No need to open the activity again
+                        // the saveUserDetails updates the listener on the ChatFragment
+                       /*
+                       Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
+                        startActivity(intent);
+                        */
+                    }
 
-
-
-//Finish the current activity
-                    //finish();
-
-//Start the main activity
-                    startActivity(intent);
-
-                }
-                if(selectedItem.equals("Arabic")){
-                    learnlanguage="Arabic";
-                    updateValues = new HashMap<>();
-                    updateValues.put("learnlanguage",learnlanguage);
-                    saveUserDetails(updateValues);
-                    //Create an Intent to launch the main activity
-                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
-
-
-
-//Finish the current activity
-                    //finish();
-
-//Start the main activity
-                    startActivity(intent);
-
-                }
-                if(selectedItem.equals("Spanish")){
-                    learnlanguage="Spanish";
-                    updateValues = new HashMap<>();
-                    updateValues.put("learnlanguage",learnlanguage);
-                    saveUserDetails(updateValues);
-                    //Create an Intent to launch the main activity
-                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
-
-
-
-//Finish the current activity
-                    //finish();
-
-//Start the main activity
-                    startActivity(intent);
-
-                }
-
-                if(selectedItem.equals("russian")){
-                    learnlanguage="russian";
-                    updateValues = new HashMap<>();
-                    updateValues.put("learnlanguage",learnlanguage);
-                    saveUserDetails(updateValues);
-                    //Create an Intent to launch the main activity
-                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
-
-
-
-//Finish the current activity
-                    //finish();
-
-//Start the main activity
-                    startActivity(intent);
-
-                }
-                if(selectedItem.equals("Hebrew")){
-                    learnlanguage="Hebrew";
-                    updateValues = new HashMap<>();
-                    updateValues.put("learnlanguage",learnlanguage);
-                    saveUserDetails(updateValues);
-                    //Create an Intent to launch the main activity
-                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
-
-
-
-//Finish the current activity
-                    //finish();
-
-//Start the main activity
-                    startActivity(intent);
-
-                }
-
-                if(selectedItem.equals("chinese")){
-                    learnlanguage="chinese";
-                    updateValues = new HashMap<>();
-                    updateValues.put("learnlanguage",learnlanguage);
-                    saveUserDetails(updateValues);
-                    //Create an Intent to launch the main activity
-                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
-
-
-
-//Finish the current activity
-                    //finish();
-
-//Start the main activity
-                    startActivity(intent);
-
-                }
-                if(selectedItem.equals("English")){
-                    learnlanguage="English";
-                    updateValues = new HashMap<>();
-                    updateValues.put("learnlanguage",learnlanguage);
-                    saveUserDetails(updateValues);
-                    //Create an Intent to launch the main activity
-                    Intent intent = new Intent(ChatActivity.this, ChatActivity.class);
-
-
-
-//Finish the current activity
-                    //finish();
-
-//Start the main activity
-                    startActivity(intent);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        // Do nothing
+                    }
+                });
             }
         });
-
-
-
-
-
 
 
 
@@ -275,14 +196,7 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
                 viewPager.setCurrentItem(tab.getPosition());
                 if (tab.getPosition() == 0 || tab.getPosition() == 1 || tab.getPosition() == 2) {
                     pagerAdapter.notifyDataSetChanged();
-
-
                 }
-
-
-
-
-
             }
 
             @Override
@@ -336,12 +250,22 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
 
             case R.id.settings:
+                if(userprofile == null) return true;
                 View settingsLayout = getLayoutInflater().inflate(R.layout.settings_layout,null,false);
-
+                CheckBox soundOnCheckBox = settingsLayout.findViewById(R.id.soundOn);
+                soundOnCheckBox.setChecked(userprofile.isSoundOn());
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this)
                         .setTitle("SimpLearn")
                         .setPositiveButton("Save", (dialogInterface, i) -> {
-
+                          if(userprofile.isSoundOn() != soundOnCheckBox.isChecked()) {
+                              userprofile.setSoundOn(soundOnCheckBox.isChecked());
+                              saveUser(userprofile, new OnSuccessListener<com.example.simplearn.userprofile>() {
+                                  @Override
+                                  public void onSuccess(com.example.simplearn.userprofile userprofile) {
+                                      Toast.makeText(ChatActivity.this,"Saved settings",Toast.LENGTH_LONG).show();
+                                  }
+                              });
+                          }
                         })
                         .setNegativeButton("Close",null)
                         .setView(settingsLayout);
