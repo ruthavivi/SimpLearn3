@@ -52,14 +52,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ProfileActivity extends AppCompatActivity  {
+public class ProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
 
     private final static int CAMERA_CODE = 1;
     private final static int GALLERY_CODE = 2;
 
-    EditText mviewusername,myviewmotherlanguage,myvuewlearning,myviewage,bio;
+    EditText mviewusername,myviewmotherlanguage,
+            myviewage,bio;
+    Spinner myvuewlearning;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     TextView mmovetoupdateprofile;
@@ -104,7 +106,28 @@ public class ProfileActivity extends AppCompatActivity  {
         firebaseDatabase=FirebaseDatabase.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseStorage=FirebaseStorage.getInstance();
+        myvuewlearning.setOnItemSelectedListener(this);
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("Language");
+        categories.add("English");
+        categories.add("Hebrew");
+        categories.add("Spanish");
+        categories.add("Arabic");
+        categories.add("russian");
+        categories.add("chinese");
 
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+
+        // attaching data adapter to spinner
+        myvuewlearning.setAdapter(dataAdapter);
+        int spinnerPosition = dataAdapter.getPosition("Language");
+        myvuewlearning.setSelection(spinnerPosition);
 
         setSupportActionBar(mtoolbarofviewprofile);
 
@@ -140,7 +163,11 @@ public class ProfileActivity extends AppCompatActivity  {
                 mviewusername.setText(muserprofile.getUsername());
                 bio.setText(muserprofile.getBio());
                 myviewmotherlanguage.setText(muserprofile.getMotherlanguage());
-                myvuewlearning.setText(muserprofile.getLearnlanguage());
+
+                int langIdx = categories.indexOf(muserprofile.getLearnlanguage());
+                if(langIdx!=-1)
+                    myvuewlearning.setSelection(langIdx);
+
                 myviewage.setText(muserprofile.getAge());
             }
         });
@@ -153,9 +180,14 @@ public class ProfileActivity extends AppCompatActivity  {
                 String userName = mviewusername.getText().toString();
                 String mybio=bio.getText().toString();
                 String motherLanguage = myviewmotherlanguage.getText().toString();
-                String learningLanguage = myvuewlearning.getText().toString();
-                String age = myviewage.getText().toString();
+                String learningLanguage = categories.get(myvuewlearning.getSelectedItemPosition());
                 String problematicField = null;
+                if("Language".equals(learningLanguage)) {
+                    problematicField = "Learning Language";
+                    myvuewlearning.requestFocus();
+                }
+                String age = myviewage.getText().toString();
+
                 if(userName.isEmpty()) {
                     mviewusername.requestFocus();
                     problematicField = "User name";
@@ -406,4 +438,13 @@ public class ProfileActivity extends AppCompatActivity  {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if("Language".equals( adapterView.getItemAtPosition(i).toString())) return;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

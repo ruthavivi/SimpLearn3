@@ -57,9 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 countrycode = mcountrycodepicker.getSelectedCountryCodeWithPlus();
             }
         });
-FirebaseDatabase.getInstance().getReference().get().addOnSuccessListener(result -> {
-    System.out.println(result.getValue());
-});
+
         msendotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

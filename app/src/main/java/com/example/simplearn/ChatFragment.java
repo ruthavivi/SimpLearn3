@@ -2,13 +2,16 @@ package com.example.simplearn;
 
 //test
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -143,7 +148,85 @@ public class ChatFragment extends firebasemodel implements SwipeRefreshLayout.On
         chatAdapter = new FirestoreRecyclerAdapter<firebasemodel, NoteViewHolder>(allusername) {
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i, @NonNull firebasemodel firebasemodel) {
+                firebasemodel model = allusername.getSnapshots().get(i);
+                noteViewHolder.itemView
+                                .setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+                                        Button blockUserBtn = new Button(view.getContext());
+                                        blockUserBtn.setText("Block User");
 
+                                        Button unblockUserBtn = new Button(view.getContext());
+                                        unblockUserBtn.setText("UnBlock User");
+                                        LinearLayout layout = new LinearLayout(view.getContext());
+                                        layout.addView(blockUserBtn);
+                                        layout.addView(unblockUserBtn);
+
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        layout.setLayoutParams(params);
+                                        AlertDialog dialog = new AlertDialog.Builder(
+                                                view.getContext()
+                                        ).setTitle("Chat Settings")
+                                                .setView(layout)
+                                                .setPositiveButton("Close",null)
+                                                .create();
+
+
+                                                dialog.show();
+
+
+                                        ProgressDialog pDialog = new ProgressDialog(view.getContext());
+                                        pDialog.setMessage("Blocking " + model.name);
+                                        pDialog.setTitle("Chat settings");
+                                        blockUserBtn.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                pDialog.setMessage("Blocking " + model.getName());
+                                                pDialog.show();
+                                                FirebaseDatabase
+                                                        .getInstance()
+                                                        .getReference("block_map")
+                                                        .child(model.uid)
+                                                        .child(FirebaseAuth.getInstance().getUid())
+                                                        .setValue(true)
+                                                        .addOnSuccessListener((v) -> {
+                                                            Toast.makeText(getContext(),"Blocked User Successfully",Toast.LENGTH_SHORT).show();
+                                                            dialog.dismiss();
+                                                            pDialog.dismiss();
+                                                        }).addOnFailureListener((v) -> {
+                                                            Toast.makeText(getContext(),"Please try again later",Toast.LENGTH_SHORT).show();
+                                                            dialog.dismiss();
+                                                            pDialog.dismiss();
+                                                        });
+                                            }
+                                        });
+
+                                        unblockUserBtn.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                pDialog.setMessage("Unblocking " + model.getName());
+                                                pDialog.show();
+                                                FirebaseDatabase
+                                                        .getInstance()
+                                                        .getReference("block_map")
+                                                        .child(model.uid)
+                                                        .child(FirebaseAuth.getInstance().getUid())
+                                                        .setValue(false)
+                                                        .addOnSuccessListener((v) -> {
+                                                            Toast.makeText(getContext(),"UnBlocked User Successfully",Toast.LENGTH_SHORT).show();
+                                                            dialog.dismiss();
+                                                            pDialog.dismiss();
+                                                        }).addOnFailureListener((v) -> {
+                                                            Toast.makeText(getContext(),"Please try again later",Toast.LENGTH_SHORT).show();
+                                                            dialog.dismiss();
+                                                            pDialog.dismiss();
+                                                        });
+                                            }
+                                        });
+
+                                        return true;
+                                    }
+                                });
                 noteViewHolder.particularusername.setText(firebasemodel.getName());
                 String uri = firebasemodel.getImage();
                 noteViewHolder.bio.setText(firebasemodel.getBio());
@@ -167,7 +250,26 @@ public class ChatFragment extends firebasemodel implements SwipeRefreshLayout.On
                         intent.putExtra("learnLanguage", firebasemodel.getLearnlanguage());
                         intent.putExtra("age", firebasemodel.getAge());
                         intent.putExtra("bio",firebasemodel.getBio());
-                        startActivity(intent);
+
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference("block_map")
+                                .child(FirebaseAuth.getInstance().getUid())
+                                .child(firebasemodel.uid)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot.exists()) {
+                                            boolean blocked = (boolean)dataSnapshot.getValue();
+                                            if(blocked) {
+                                                Toast.makeText(getContext(),"Can not start chat with this user due to privacy reasons",Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                        }
+                                        startActivity(intent);
+                                    }
+                                }).addOnFailureListener((v) -> startActivity(intent));
                     }
                 });
             }

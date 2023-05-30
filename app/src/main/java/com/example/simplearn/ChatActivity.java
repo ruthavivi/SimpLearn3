@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class ChatActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class ChatActivity extends AppCompatActivity  {
 
     TabLayout tabLayout;
     TabItem mchat, mcall, mstatus,msongs,marticle,mgames;
@@ -65,7 +65,8 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     private void getUser(OnSuccessListener<userprofile> success) {
-        FirebaseFirestore.getInstance().collection("Users")
+        FirebaseFirestore.getInstance()
+                .collection("Users")
                 .document(FirebaseAuth.getInstance().getUid())
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -133,7 +134,7 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
 
         button11=(ImageButton)findViewById(R.id.button11);
 
-        spinner.setOnItemSelectedListener(this);
+       // spinner.setOnItemSelectedListener(this);
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
         categories.add("Language");
@@ -334,13 +335,4 @@ public class ChatActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }
