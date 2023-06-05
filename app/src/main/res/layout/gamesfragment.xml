@@ -1,87 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/game">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linear_layout"
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/include"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="3dp"
-        android:layout_gravity="center">
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="0dp"
+        android:backgroundTint="#F3023731"
+        app:tabTextColor="#E6DDDD">
+        <!--        app:tabIndicatorColor="@color/white"-->
+        <!--        app:tabIndicatorHeight="1dp"-->
+        <!--        app:tabSelectedTextColor="@color/white"-->
+        <!--        app:tabTextColor="#222627">-->
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_weight="1"
-            />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="75dp"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/chat"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:text="memo game">
 
+        </com.google.android.material.tabs.TabItem>
 
-            android:text="1"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="75dp"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/games"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:text="second game">
 
+        </com.google.android.material.tabs.TabItem>
 
-            android:text=" 2"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="75dp"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/article"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:text="third game">
 
+        </com.google.android.material.tabs.TabItem>
 
-            android:text=" 3"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="75dp"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/songs"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:text="word game">
+
+        </com.google.android.material.tabs.TabItem>
 
 
-            android:text="4"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+    </com.google.android.material.tabs.TabLayout>
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linear_layout2"
-        android:layout_width="fill_parent"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragmentcontainer"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/linear_layout"
-        android:orientation="vertical">
+        android:layout_below="@id/include"
+        android:layout_marginTop="9dp">
 
-        <WebView
-            android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    </androidx.viewpager.widget.ViewPager>
 
-    </LinearLayout>
 
-</RelativeLayout>
+
+
+</LinearLayout>
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@drawable/game">-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linear_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="3dp"-->
+<!--        android:layout_gravity="center">-->
+
+<!--        <FrameLayout-->
+<!--            android:id="@+id/fragment_container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="3dp"-->
+<!--            android:layout_weight="1"-->
+<!--            />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button2"-->
+<!--            android:layout_width="75dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="8dp"-->
+
+
+<!--            android:text="1"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="18sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button3"-->
+<!--            android:layout_width="75dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="8dp"-->
+
+
+<!--            android:text=" 2"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="18sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button4"-->
+<!--            android:layout_width="75dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="8dp"-->
+
+
+<!--            android:text=" 3"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="18sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button5"-->
+<!--            android:layout_width="75dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="8dp"-->
+
+
+<!--            android:text="4"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="18sp" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linear_layout2"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/linear_layout"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <WebView-->
+<!--            android:id="@+id/webview"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+
+<!--    </LinearLayout>-->
+
+<!--</RelativeLayout>-->
