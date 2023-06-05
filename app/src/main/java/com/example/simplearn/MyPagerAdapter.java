@@ -25,7 +25,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter  {
             case 2:
                 return new game3fragment();
             case 3:
-                return new game4fragment();
+                return new WordGameFragment();
             default:
                 return new game1fragment();
         }

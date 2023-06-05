@@ -47,7 +47,7 @@ public class gamesFragment extends Fragment implements MyPagerAdapter.OnOptionSe
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                if (tab.getPosition() == 0 || tab.getPosition() == 1 || tab.getPosition() == 2|| tab.getPosition() == 3) {
+                if (tab.getPosition() == 0 ) {
                     pagerAdapter.notifyDataSetChanged();
                 }
             }
@@ -82,7 +82,7 @@ public class gamesFragment extends Fragment implements MyPagerAdapter.OnOptionSe
                 fragmentTransaction.replace(R.id.fragmentcontainer, new game3fragment());
                 break;
             case 3:
-                fragmentTransaction.replace(R.id.fragmentcontainer, new game4fragment());
+                fragmentTransaction.replace(R.id.fragmentcontainer, new WordGameFragment());
                 break;
         }
 

@@ -1,29 +1,18 @@
 package com.example.simplearn;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-
-//public class WordGame extends AppCompatActivity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_word_game);
-//    }
-//}
-
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,8 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,10 +30,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class WordGame extends AppCompatActivity {
+public class WordGameFragment extends Fragment {
     private TextView tvScrambledWord;
     private EditText etUserGuess;
-    private Button btnSubmit,button3;
+    private Button btnSubmit, button3;
     private TextView tvResult;
 
     private ArrayList<String> wordsList;
@@ -54,23 +41,20 @@ public class WordGame extends AppCompatActivity {
     private Random random;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    public String motherL,learnL;
+    private String motherL, learnL;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word_game);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_word_game, container, false);
 
         // Initialize UI components
-        tvScrambledWord = findViewById(R.id.tvScrambledWord);
-        etUserGuess = findViewById(R.id.etUserGuess);
-        btnSubmit = findViewById(R.id.btnSubmit);
-        tvResult = findViewById(R.id.tvResult);
-        button3=findViewById(R.id.button3);
-
+        tvScrambledWord = view.findViewById(R.id.tvScrambledWord);
+        etUserGuess = view.findViewById(R.id.etUserGuess);
+        btnSubmit = view.findViewById(R.id.btnSubmit);
+        tvResult = view.findViewById(R.id.tvResult);
+        button3 = view.findViewById(R.id.button3);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
@@ -78,8 +62,8 @@ public class WordGame extends AppCompatActivity {
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                userprofile muserprofile= value.toObject(userprofile.class);
-                if(muserprofile == null) {
+                userprofile muserprofile = value.toObject(userprofile.class);
+                if (muserprofile == null) {
                     userprofile profile = new userprofile();
                     profile.setUserUID(firebaseAuth.getUid());
                     firebaseFirestore.collection("Users")
@@ -88,12 +72,11 @@ public class WordGame extends AppCompatActivity {
                     return;
                 }
 
-                learnL=muserprofile.getLearnlanguage();
-                motherL= muserprofile.getMotherlanguage();
-
-
+                learnL = muserprofile.getLearnlanguage();
+                motherL = muserprofile.getMotherlanguage();
             }
         });
+
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,23 +99,22 @@ public class WordGame extends AppCompatActivity {
                         wordsList.add("כפתור");
                         wordsList.add("חתול");
                         wordsList.add("כלב");
-                        // code block
                         break;
                     case "English":
                         wordsList = new ArrayList<>();
-                        wordsList.add("hellow");
+                        wordsList.add("hello");
                         wordsList.add("red");
                         wordsList.add("black");
                         wordsList.add("blue");
-                        wordsList.add("hellow");
+                        wordsList.add("hello");
                         wordsList.add("red");
                         wordsList.add("black");
                         wordsList.add("blue");
-                        wordsList.add("hellow");
+                        wordsList.add("hello");
                         wordsList.add("red");
                         wordsList.add("black");
                         wordsList.add("blue");
-                        wordsList.add("hellow");
+                        wordsList.add("hello");
                         wordsList.add("red");
                         wordsList.add("black");
                         wordsList.add("blue");
@@ -141,20 +123,20 @@ public class WordGame extends AppCompatActivity {
                         wordsList = new ArrayList<>();
                         wordsList.add("amor");
                         wordsList.add("enojado");
-                        wordsList.add("corazón ");
-                        wordsList.add("traición ");
-                        wordsList.add("emocionante ");
-                        wordsList.add("triste ");
-                        wordsList.add("mano ");
-                        wordsList.add("pierna ");
-                        wordsList.add("cabeza ");
-                        wordsList.add("ojos ");
-                        wordsList.add("naris ");
-                        wordsList.add("boca ");
-                        wordsList.add("madre ");
-                        wordsList.add("padre ");
-                        wordsList.add("hermana ");
-                        wordsList.add("abuelo ");
+                        wordsList.add("corazón");
+                        wordsList.add("traición");
+                        wordsList.add("emocionante");
+                        wordsList.add("triste");
+                        wordsList.add("mano");
+                        wordsList.add("pierna");
+                        wordsList.add("cabeza");
+                        wordsList.add("ojos");
+                        wordsList.add("naris");
+                        wordsList.add("boca");
+                        wordsList.add("madre");
+                        wordsList.add("padre");
+                        wordsList.add("hermana");
+                        wordsList.add("abuelo");
                         break;
 
                     case "chinease":
@@ -299,7 +281,9 @@ public class WordGame extends AppCompatActivity {
                         wordsList.add("blue");
                         break;
                     // code block
+
                 }
+
                 // Initialize random object
                 random = new Random();
 
@@ -313,27 +297,10 @@ public class WordGame extends AppCompatActivity {
                         checkUserGuess();
                     }
                 });
-
-
-
-
             }
         });
 
-
-
-
-
-
-
-
-
-
-        // Load words from text file
-
-
-
-
+        return view;
     }
 
     private void startNewGame() {
