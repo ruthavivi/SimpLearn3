@@ -75,34 +75,34 @@ public class game2fragment extends Fragment {
             public void run() {
                 switch (learnL) {
                     case "Hebrew":
-                        ll = "he";
+                        ll = "hebrew";
                         break;
                     case "German":
-                        ll = "de";
+                        ll = "german";
                         break;
                     case "English":
-                        ll = "en";
+                        ll = "english";
                         break;
                     case "Spanish":
-                        ll = "es";
+                        ll = "spanish";
                         break;
 
                     case "chinease":
-                        ll = "zh";
+                        ll = "chinease";
                         break;
 
                     case "russian":
-                        ll = "ru";
+                        ll = "russian";
                         break;
 
                     case "Arabic":
-                        ll = "ar";
+                        ll = "arabic";
                         break;
                     case "Italian":
-                        ll = "it";
+                        ll = "italian";
                         break;
                     case "Franche":
-                        ll = "fr";
+                        ll = "french";
                         break;
                     default:
 
@@ -150,7 +150,9 @@ public class game2fragment extends Fragment {
             }
         }, 30); // מחכה למשך 5 שניות לפני שהופעל ה switch case
 
-        url="https://50languages.com/"+ml+"/game/find_opposites/"+ll;
+
+        url="https://www.lingo-play.com/en/"+ll+"-for-beginners-and-advanced/";
+
         mWebView.loadUrl(url);
 
         return view;
