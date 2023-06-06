@@ -125,7 +125,7 @@
             </EditText>
 
             <EditText
-                android:enabled="false"
+
 
                 android:id="@+id/viewmotherlanguage"
                 android:layout_width="match_parent"
@@ -136,11 +136,12 @@
 
             </EditText>
 
+
             <Spinner
                 android:id="@+id/viewLearninglanguage"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                >
+                android:layout_height="50dp">
+
             </Spinner>
 
             <EditText

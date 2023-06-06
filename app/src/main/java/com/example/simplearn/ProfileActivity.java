@@ -221,7 +221,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                 HashMap<String,Object> updateValues = new HashMap<>();
                 updateValues.put("username",userName);
                 //if(!bioEt.getText().toString().isEmpty())
-                 //updateValues.put("bio", bioEt.getText().toString());
+                //updateValues.put("bio", bioEt.getText().toString());
                 updateValues.put("age",age);
                 updateValues.put("bio",mybio);
                 updateValues.put("motherlanguage",motherLanguage);
@@ -274,13 +274,13 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                         @Override
                         public void onClick(View view) {
                             if(ActivityCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.CAMERA)
-                            == PERMISSION_GRANTED) {
+                                    == PERMISSION_GRANTED) {
                                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                 startActivityForResult(cameraIntent, CAMERA_CODE);
                             } else {
-                                 ActivityCompat.requestPermissions(ProfileActivity.this,
-                                         new String[]{Manifest.permission.CAMERA},
-                                         1);
+                                ActivityCompat.requestPermissions(ProfileActivity.this,
+                                        new String[]{Manifest.permission.CAMERA},
+                                        1);
                             }
                         }
                     });
@@ -414,11 +414,11 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                 .document(firebaseAuth.getUid());
         documentReference.update("status","Offline")
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(),"Now User is Offline",Toast.LENGTH_SHORT).show();
-            }
-        });
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(),"Now User is Offline",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
 
