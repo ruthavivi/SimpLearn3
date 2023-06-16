@@ -75,34 +75,44 @@ public class game2fragment extends Fragment {
             public void run() {
                 switch (learnL) {
                     case "Hebrew":
+
                         ll = "hebrew";
+                        url="https://www.duolingo.com/enroll/he/en/Learn-Hebrew";
                         break;
                     case "German":
                         ll = "german";
+                        url="https://www.duolingo.com/enroll/de/en/Learn-German";
                         break;
                     case "English":
                         ll = "english";
+                        url="https://www.duolingo.com/enroll/es/en/Learn-Spanish";
                         break;
                     case "Spanish":
                         ll = "spanish";
+                        url="https://www.duolingo.com/enroll/es/en/Learn-Spanish";
                         break;
 
                     case "chinease":
                         ll = "chinease";
+                        url="https://www.duolingo.com/enroll/zh/en/Learn-Chinese";
                         break;
 
                     case "russian":
                         ll = "russian";
+                        url="https://www.duolingo.com/enroll/ru/en/Learn-Russian";
                         break;
 
                     case "Arabic":
                         ll = "arabic";
+                        url="https://www.duolingo.com/enroll/ar/en/Learn-Arabic";
                         break;
                     case "Italian":
                         ll = "italian";
+                        url="https://www.duolingo.com/enroll/it/en/Learn-Italian";
                         break;
                     case "Franche":
                         ll = "french";
+                        url="https://www.duolingo.com/enroll/fr/en/Learn-French";
                         break;
                     default:
 
@@ -151,7 +161,7 @@ public class game2fragment extends Fragment {
         }, 30); // מחכה למשך 5 שניות לפני שהופעל ה switch case
 
 
-        url="https://www.lingo-play.com/en/"+ll+"-for-beginners-and-advanced/";
+
 
         mWebView.loadUrl(url);
 
