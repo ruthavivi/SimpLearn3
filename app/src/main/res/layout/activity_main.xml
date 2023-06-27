@@ -8,14 +8,13 @@
     tools:context=".MainActivity">
 
 
-
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/mychatapplogo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:id="@+id/logo">
+        android:src="@drawable/simplearnlogo">
 
     </ImageView>
 
@@ -80,20 +79,19 @@
     </EditText>
 
 
-
     <android.widget.Button
+        android:id="@+id/sendotpbutton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@id/getphonenumber"
-        android:id="@+id/sendotpbutton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:textColor="@color/white"
+        android:background="#FF5722"
         android:paddingLeft="40dp"
-        android:text="Sent OTP"
-        android:textSize="15sp"
         android:paddingRight="40dp"
-        android:background="#25d366">
+        android:text="Sent OTP"
+        android:textColor="@color/white"
+        android:textSize="15sp">
 
     </android.widget.Button>
 

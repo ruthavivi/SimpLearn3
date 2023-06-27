@@ -199,6 +199,9 @@ public class SpecificChat extends AppCompatActivity implements VideoEnterRoomNum
                 }
             }
         });
+
+
+
         initJitsiMeet();
         videoCallBtn.setOnClickListener(view -> onClickVideoCall());
     }

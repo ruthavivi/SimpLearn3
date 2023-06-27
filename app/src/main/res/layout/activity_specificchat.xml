@@ -74,8 +74,6 @@
                 android:layout_alignParentRight="true"
 
 
-
-
                 android:padding="16dp"
                 android:src="@drawable/ic_call"
                 app:tint="@color/white" />

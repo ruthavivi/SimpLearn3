@@ -63,6 +63,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
             myviewage,bio;
     Spinner myvuewlearning;
     FirebaseAuth firebaseAuth;
+
     FirebaseDatabase firebaseDatabase;
     TextView mmovetoupdateprofile;
     String tweetText="hey im new here";
@@ -317,6 +318,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                         public void onClick(DialogInterface dialogInterface, int i) {
                             System.out.println("Deleting account>");
 
+
                             String uid = FirebaseAuth.getInstance().getUid();
                             // Delete the authentication document
                             FirebaseAuth.getInstance()
@@ -345,6 +347,10 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                                                                 dataSnapshot.getRef().removeValue();
                                                         }
                                                     });
+
+                                            startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+
+
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override

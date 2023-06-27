@@ -14,7 +14,7 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:src="@drawable/mychatapplogo">
+        android:src="@drawable/simplearnlogo">
 
     </ImageView>
 
@@ -66,17 +66,17 @@
     </TextView>
 
     <android.widget.Button
+        android:id="@+id/verifyotp"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@id/changenumber"
-        android:id="@+id/verifyotp"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:paddingLeft="40dp"
-        android:text="Verify OTP"
         android:layout_marginTop="50dp"
+        android:background="#FF5722"
+        android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:background="#25d366">
+        android:text="Verify OTP"
+        android:textColor="@color/white">
 
     </android.widget.Button>
 

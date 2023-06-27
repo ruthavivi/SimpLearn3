@@ -30,7 +30,7 @@
             android:id="@+id/games"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="second game">
+            android:text="Duolingo Game">
 
         </com.google.android.material.tabs.TabItem>
 
@@ -38,7 +38,7 @@
             android:id="@+id/article"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="third game">
+            android:text="general games">
 
         </com.google.android.material.tabs.TabItem>
 
